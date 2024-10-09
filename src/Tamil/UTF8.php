@@ -1,11 +1,12 @@
 <?php
-
+/*
+* This PHP file uses the following encoding : utf-8
+* (C) 2024 Hariharan Umapathi <smarthariharan28@gmail.com>
+* Licensed under MIT 
+*/
 namespace Tamil;
 
-/*
-*
-*
-*/
+
 
 class UTF8
 {
@@ -33,7 +34,7 @@ class UTF8
     public const VOWEL_O = "ஒ";
     public const VOWEL_oo= "ஓ";
     public const VOWEL_AU = "ஔ";
-
+    public const UYIR_LETTERS = ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"];
 
     # List of letters you can use
 
@@ -41,19 +42,19 @@ class UTF8
     public const AYTHAM_LETTER = "ஃ";
     public const AYUDHA_LETTER = self::AYTHAM_LETTER;
 
-    public const kuril_letters = ["அ", "இ", "உ", "எ", "ஒ"];
-    public const nedil_letters = ["ஆ", "ஈ", "ஊ", "ஏ", "ஓ", "ஐ", "ஔ"];
-    public const dipthong_letters = ["ஐ", "ஔ"];
+    public const KURIL_LETTERS = ["அ", "இ", "உ", "எ", "ஒ"];
+    public const NEDIL_LETTERS = ["ஆ", "ஈ", "ஊ", "ஏ", "ஓ", "ஐ", "ஔ"];
+    public const DIPTHONG_LETTERS = ["ஐ", "ஔ"];
 
-    public const pronoun_letters = ["அ", "இ", "உ"];
-    public const suttezhuththu = pronoun_letters;
+    public const PRONOUN_LETTERS = ["அ", "இ", "உ"];
+    public const SUTTEZHUTHTHU = self::PRONOUN_LETTERS;
 
-    public const questionsuffix_letters = ["ஆ", "ஏ", "ஓ"];
-    public const vinaaezhuththu = questionsuffix_letters;
-    public const vallinam_letters = ["க்", "ச்", "ட்", "த்", "ப்", "ற்"];
-    public const mellinam_letters = ["ங்", "ஞ்", "ண்", "ந்", "ம்", "ன்"];
-    public const idayinam_letters = ["ய்", "ர்", "ல்", "வ்", "ழ்", "ள்"];
-    public const mei_letters = [
+    public const QUESTIONSUFFIX_LETTERS = ["ஆ", "ஏ", "ஓ"];
+    public const VINAAEZHUTHTHU = self::QUESTIONSUFFIX_LETTERS;
+    public const VALLINAM_LETTERS  = ["க்", "ச்", "ட்", "த்", "ப்", "ற்"];
+    public const MELLINAM_LETTERS  = ["ங்", "ஞ்", "ண்", "ந்", "ம்", "ன்"];
+    public const IDAYINAM_LETTERS  = ["ய்", "ர்", "ல்", "வ்", "ழ்", "ள்"];
+    public const MEI_LETTERS = [
         "க்",
         "ச்",
         "ட்",
@@ -74,24 +75,24 @@ class UTF8
         "ள்",
     ];
 
-    public const accent_symbols = [
+    public const ACCENT_SYMBOLS = [
         "", "ா", "ி", "ீ", "ு", "ூ", "ெ", "ே", "ை", "ொ", "ோ", "ௌ", "ஃ"
     ];
 
-    public const accent_aa = accent_symbols[1];
-    public const accent_i = accent_symbols[2];
-    public const accent_u = accent_symbols[3];
-    public const accent_uu = accent_symbols[4];
-    public const accent_e = accent_symbols[5];
-    public const accent_ee = accent_symbols[6];
-    public const accent_ai = accent_symbols[7];
-    public const accent_o = accent_symbols[8];
-    public const accent_oo = accent_symbols[9];
-    public const accent_au = accent_symbols[10];
+    public const ACCENT_AA = self::ACCENT_SYMBOLS[1];
+    public const ACCENT_I =  self::ACCENT_SYMBOLS[2];
+    public const ACCENT_U = self::ACCENT_SYMBOLS[3];
+    public const ACCENT_UU = self::ACCENT_SYMBOLS[4];
+    public const ACCENT_E = self::ACCENT_SYMBOLS[5];
+    public const ACCENT_EE = self::ACCENT_SYMBOLS[6];
+    public const ACCENT_AI = self::ACCENT_SYMBOLS[7];
+    public const ACCENT_O = self::ACCENT_SYMBOLS[8];
+    public const ACCENT_OO = self::ACCENT_SYMBOLS[9];
+    public const ACCENT_AU = self::ACCENT_SYMBOLS[10];
 
-    public const pulli_symbols = ["்"];
+    public const PULLI_SYMBOLS = ["்"];
 
-    public const agaram_letters = [
+    public const AGARAM_LETTERS= [
         "க",
         "ச",
         "ட",
@@ -137,10 +138,7 @@ class UTF8
     public const sanskrit_letters = ["ஶ", "ஜ", "ஷ", "ஸ", "ஹ", "க்ஷ"];
     public const sanskrit_mei_letters = ["ஶ்", "ஜ்", "ஷ்", "ஸ்", "ஹ்", "க்ஷ்"];
 
-
-    //const grantha_agaram_letters =
-
-    public const uyirmei_letters = [
+    public const UYIRMEI_LETTERS = [
         "க",
         "கா",
         "கி",
@@ -742,7 +740,7 @@ class UTF8
          }*/
     public static function getGrandhaMeiLetters()
     {
-        return array_merge(self::mei_letters, self::sanskrit_mei_letters);
+        return array_merge(self::MEI_LETTERS, self::sanskrit_mei_letters);
     }
     //nst grantha_mei_letters = ;
     public static function grandhaAgaramLetters()
@@ -776,6 +774,70 @@ class UTF8
     {
         return ;
     }
+    ## length of the definitions
+    function getAccentLen(){
+    	     return self::TA_ACCENT_LEN; //13 = 12 + 1
+    }
+    function getAyudhaLen(){
+    	     return self::TA_AYUDHA_LEN;
+    }
+    function getUyirLen(){
+    	     return self::TA_UYIR_LEN;
+    }
+    function getMeiLen(){
+    	     return self::TA_MEI_LEN;
+    }
+    function getAgaramLen(){
+    	     return self::TA_AGARAM_LEN;
+    }
+    function getUyirmeiLen(){
+    	     return self::TA_UYIRMEI_LEN;
+    }
+    function getTamilLen(){
+    	     return count(self::tamil_letters);
+    }
+
+    //Access the Letters
+    function uyir($index){
+    	 if($index >=0 && $index < self::getUyirLen())
+	 return self::UYIR_LETTERS[$index];
+    }
+
+    function agaram($index){
+    	 if($index >=0 && $index < self::getAgaramLen())
+	 return self::AGARAM_LETTERS[$index];
+    }
+    function mei($index){
+    	 if($index >=0 && $index < self::getMeiLen())
+	 return self::MEI_LETTERS[$index];
+    }
+    function uyirmei($index){
+    	 if($index >=0 && $index < self::getUyirmeiLen())
+	 return self::UYIRMEI_LETTERS[$index];
+    }
+
+    //Utility functions
+
+    function meiToAgaram($in_syllable){
+    	     if(array_search($in_syllable,self::getGrandhameiLetters())!=-1)
+	     echo "FOUND".PHP_EOL;
+	     else
+	     echo "NOT FOUND".PHP_EOL;
+    }
 }
 
-print_r(UTF8::VOWEL_A);
+echo "Accent :".UTF8::getAccentLen().PHP_EOL;
+echo "Ayudha :".UTF8::getAyudhaLen().PHP_EOL;
+echo "Uyir   :".UTF8::getUyirLen().PHP_EOL;
+echo "Mei    :".UTF8::getMeiLen().PHP_EOL;
+echo "Agaram :".UTF8::getAgaramLen().PHP_EOL;
+echo "UyirMei:".UTF8::getUyirmeiLen().PHP_EOL.PHP_EOL;
+echo "Tamil Len : ".UTF8::getTamilLen().PHP_EOL;
+
+
+echo "Access Letters : ".UTF8::uyir(0).PHP_EOL;
+echo "2 : ".UTF8::agaram(0).PHP_EOL;
+echo "3 : ".UTF8::mei(0).":".UTF8::mei(19).PHP_EOL;
+echo "4 :".UTF8::uyirmei(147).PHP_EOL;
+echo "5 :".UTF8::meiToAgaram(UTF8::mei(0));
+
