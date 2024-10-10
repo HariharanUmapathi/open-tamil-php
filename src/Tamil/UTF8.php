@@ -2,11 +2,14 @@
 /*
 * This PHP file uses the following encoding : utf-8
 * (C) 2024 Hariharan Umapathi <smarthariharan28@gmail.com>
-* Licensed under MIT 
+* Licensed under MIT
 */
+
 namespace Tamil;
 
-
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+assert(phpversion() === "7.4.4", "PHP Version 7.4.3 is minimum required version");
 
 class UTF8
 {
@@ -32,7 +35,7 @@ class UTF8
     public const VOWEL_EE = "ஏ";
     public const VOWEL_AI = "ஐ";
     public const VOWEL_O = "ஒ";
-    public const VOWEL_oo= "ஓ";
+    public const VOWEL_oo = "ஓ";
     public const VOWEL_AU = "ஔ";
     public const UYIR_LETTERS = ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"];
 
@@ -92,7 +95,7 @@ class UTF8
 
     public const PULLI_SYMBOLS = ["்"];
 
-    public const AGARAM_LETTERS= [
+    public const AGARAM_LETTERS = [
         "க",
         "ச",
         "ட",
@@ -399,7 +402,7 @@ class UTF8
     ];
 
     ## total tamil letters in use, including sanskrit letters
-    public const tamil_letters = [
+    public const TAMIL_LETTERS = [
         ## /* Uyir */
         "அ",
         "ஆ",
@@ -745,7 +748,7 @@ class UTF8
     //nst grantha_mei_letters = ;
     public static function grandhaAgaramLetters()
     {
-        return array_merge(self::agaram_letters, self::sanskrit_letters);
+        return array_merge(self::AGARAM_LETTERS, self::sanskrit_letters);
     }
     //  copy(tamil_letters[tamil_letters.index("கா") - 1:]);
 
@@ -757,8 +760,8 @@ class UTF8
     }
     public static function getTamil247()
     {
-    echo self::ayudha_letter;
-        return array_merge([],[], self::uyir_letters, self::mei_letters, self::uyirmei_letters);
+        echo self::ayudha_letter;
+        return array_merge([], [], self::uyir_letters, self::mei_letters, self::uyirmei_letters);
     }
 
     public static function getTamilNumbers()
@@ -775,57 +778,111 @@ class UTF8
         return ;
     }
     ## length of the definitions
-    function getAccentLen(){
-    	     return self::TA_ACCENT_LEN; //13 = 12 + 1
+    public function getAccentLen()
+    {
+        return self::TA_ACCENT_LEN; //13 = 12 + 1
     }
-    function getAyudhaLen(){
-    	     return self::TA_AYUDHA_LEN;
+    public function getAyudhaLen()
+    {
+        return self::TA_AYUDHA_LEN;
     }
-    function getUyirLen(){
-    	     return self::TA_UYIR_LEN;
+    public static function getUyirLen()
+    {
+        return self::TA_UYIR_LEN;
     }
-    function getMeiLen(){
-    	     return self::TA_MEI_LEN;
+    public static function getMeiLen()
+    {
+        return self::TA_MEI_LEN;
     }
-    function getAgaramLen(){
-    	     return self::TA_AGARAM_LEN;
+    public function getAgaramLen()
+    {
+        return self::TA_AGARAM_LEN;
     }
-    function getUyirmeiLen(){
-    	     return self::TA_UYIRMEI_LEN;
+    public function getUyirmeiLen()
+    {
+        return self::TA_UYIRMEI_LEN;
     }
-    function getTamilLen(){
-    	     return count(self::tamil_letters);
+    public static function getTamilLen()
+    {
+        return count(self::TAMIL_LETTERS);
     }
 
     //Access the Letters
-    function uyir($index){
-    	 if($index >=0 && $index < self::getUyirLen())
-	 return self::UYIR_LETTERS[$index];
+    public function uyir($index)
+    {
+        if ($index >= 0 && $index < self::getUyirLen()) {
+            return self::UYIR_LETTERS[$index];
+        }
     }
 
-    function agaram($index){
-    	 if($index >=0 && $index < self::getAgaramLen())
-	 return self::AGARAM_LETTERS[$index];
+    public function agaram($index)
+    {
+        if ($index >= 0 && $index < self::getAgaramLen()) {
+            return self::AGARAM_LETTERS[$index];
+        }
     }
-    function mei($index){
-    	 if($index >=0 && $index < self::getMeiLen())
-	 return self::MEI_LETTERS[$index];
+    public function mei($index)
+    {
+        if ($index >= 0 && $index < self::getMeiLen()) {
+            return self::MEI_LETTERS[$index];
+        }
     }
-    function uyirmei($index){
-    	 if($index >=0 && $index < self::getUyirmeiLen())
-	 return self::UYIRMEI_LETTERS[$index];
+    public function uyirmei($index)
+    {
+        if ($index >= 0 && $index < self::getUyirmeiLen()) {
+            return self::UYIRMEI_LETTERS[$index];
+        }
     }
 
     //Utility functions
+    /*
+    * construct uyirmei letter give mei index and uyir index
+    */
+    public static function uyirmeiConstructed($mei_idx, $uyir_idx)
+    {
+        if ($uyir_idx >= 0 && $uyir_idx < self::getUyirLen()) {
+            if ($mei_idx >= 0 && $mei_idx < 6 + self::getMeiLen()) {
+                return self::grandhaAgaramLetters()[$mei_idx].self::ACCENT_SYMBOLS[$uyir_idx];
+            }
+        }
 
-    function meiToAgaram($in_syllable){
-    	     if(array_search($in_syllable,self::getGrandhameiLetters())!=-1)
-	     echo "FOUND".PHP_EOL;
-	     else
-	     echo "NOT FOUND".PHP_EOL;
+
+    }
+    public static function meiToAgaram($in_syllable)
+    {
+        $grandhamei = self::getGrandhameiLetters();
+        if (array_search($in_syllable, $grandhamei) != -1) {
+
+            $mei_pos = array_search($in_syllable, $grandhamei);
+            $agaram_a_pos = 0;
+            $syllable = self::uyirmeiConstructed($mei_pos, $agaram_a_pos);
+            return $syllable;
+        }
+        return $in_syllable;
+
+
+    }
+    public static function tamil($index)
+    {
+        if ($index >= 0 && $index < self::getTamilLen()) {
+            return self::TAMIL_LETTERS[$index];
+        }
+    }
+    //Companion function to tamil
+    public static function getidx($letter){
+    	   foreach(range(0,self::getTamilLen()) as $index){
+	   					if(self::TAMIL_LETTERS[$index]===$letter)
+						return $index;
+						
+	   }
+	   throw new \Exception("Cannot find letter in Tamil arichuvadi");
     }
 }
-
+echo "get idx : ".UTF8::getidx('a');
+return ;
+echo "Tamil Text".UTF8::tamil(2);
+echo "Mei to Agaram : ".UTF8::meiToAgaram('ம்');
+echo "Uyrimei Constructed : ".UTF8::uyirmeiConstructed(1, 0).PHP_EOL;
 echo "Accent :".UTF8::getAccentLen().PHP_EOL;
 echo "Ayudha :".UTF8::getAyudhaLen().PHP_EOL;
 echo "Uyir   :".UTF8::getUyirLen().PHP_EOL;
@@ -840,4 +897,3 @@ echo "2 : ".UTF8::agaram(0).PHP_EOL;
 echo "3 : ".UTF8::mei(0).":".UTF8::mei(19).PHP_EOL;
 echo "4 :".UTF8::uyirmei(147).PHP_EOL;
 echo "5 :".UTF8::meiToAgaram(UTF8::mei(0));
-
