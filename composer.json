@@ -1,5 +1,12 @@
 {
     "require": {
         "phpunit/phpunit": "^9.6"
+    },
+    "scripts":{
+	"lint":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./src",
+	"test":"phpunit ./tests/TestCaseTest.php",
+	"run-program":"@php ./src/Tamil/UTF8.php",
+	"check-completion":"python3 ./src/Tamil/utf8.test.py"
+
     }
 }
