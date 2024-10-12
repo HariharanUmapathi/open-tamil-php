@@ -9,7 +9,6 @@ namespace Tamil;
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-assert(phpversion() === "7.4.4", "PHP Version 7.4.3 is minimum required version");
 
 class UTF8
 {
@@ -115,31 +114,31 @@ class UTF8
         "ழ",
         "ள",
     ];
-    public const mayangoli_letters = ["ண", "ன", "ந", "ல", "ழ", "ள", "ர", "ற"];
-    public const consonant_ka = "க";
-    public const consonant_nga = "ங";
-    public const consonant_ca = "ச";
-    public const consonant_ja = "ஜ";
-    public const consonant_nya = "ஞ";
-    public const consonant_tta = "ட";
-    public const consonant_nna = "ண";
-    public const consonant_nnna = "ன";
-    public const consonant_ta = "த";
-    public const consonant_tha = "த";
-    public const consonant_na = "ந";
-    public const consonant_pa = "ப";
-    public const consonant_ma = "ம";
-    public const consonant_ya = "ய";
-    public const consonant_ra = "ர";
-    public const consonant_rra = "ற";
-    public const consonant_la = "ல";
-    public const consonant_lla = "ள";
-    public const consonant_llla = "ழ";
-    public const consonant_zha = "ழ";
-    public const consonant_va = "வ";
+    public const MAYANGOLI_LETTERS = ["ண", "ன", "ந", "ல", "ழ", "ள", "ர", "ற"];
+    public const CONSONANT_KA = "க";
+    public const CONSONANT_NGA = "ங";
+    public const CONSONANT_CA = "ச";
+    public const CONSONANT_JA = "ஜ";
+    public const CONSONANT_NYA = "ஞ";
+    public const CONSONANT_TTA = "ட";
+    public const CONSONANT_NNA = "ண";
+    public const CONSONANT_NNNA = "ன";
+    public const CONSONANT_TA = "த";
+    public const CONSONANT_THA = "த";
+    public const CONSONANT_NA = "ந";
+    public const CONSONANT_PA = "ப";
+    public const CONSONANT_MA = "ம";
+    public const CONSONANT_YA = "ய";
+    public const CONSONANT_RA = "ர";
+    public const CONSONANT_RRA = "ற";
+    public const CONSONANT_LA = "ல";
+    public const CONSONANT_LLA = "ள";
+    public const CONSONANT_LLLA = "ழ";
+    public const CONSONANT_ZHA = "ழ";
+    public const CONSONANT_VA = "வ";
 
-    public const sanskrit_letters = ["ஶ", "ஜ", "ஷ", "ஸ", "ஹ", "க்ஷ"];
-    public const sanskrit_mei_letters = ["ஶ்", "ஜ்", "ஷ்", "ஸ்", "ஹ்", "க்ஷ்"];
+    public const SANSKRIT_LETTERS = ["ஶ", "ஜ", "ஷ", "ஸ", "ஹ", "க்ஷ"];
+    public const SANSKRIT_MEI_LETTERS = ["ஶ்", "ஜ்", "ஷ்", "ஸ்", "ஹ்", "க்ஷ்"];
 
     public const UYIRMEI_LETTERS = [
         "க",
@@ -365,9 +364,9 @@ class UTF8
 
     # Ref: https://en.wikipedia.org/wiki/Tamil_numerals
     # tamil digits : Apart from the numerals (0-9), Tamil also has numerals for 10, 100 and 1000.
-    public const tamil_digit_1to10 = ["௦", "௧", "௨", "௩", "௪", "௫", "௬", "௭", "௮", "௯", "௰"];
-    public const tamil_digit_100 = "௱";
-    public const tamil_digit_1000 = "௲";
+    public const TAMIL_DIGIT_1TO10 = ["௦", "௧", "௨", "௩", "௪", "௫", "௬", "௭", "௮", "௯", "௰"];
+    public const TAMIL_DIGIT_100 = "௱";
+    public const TAMIL_DIGIT_1000 = "௲";
 
     //const tamil_digits =
     //[(num, digit)
@@ -387,18 +386,18 @@ class UTF8
     public const _ksha = "\u0b95\u0bcd\u0bb7";  # KSHA - க்ஷ
     public const _ksh = "\u0b95\u0bcd\u0bb7\u0bcd";  # KSH - க்ஷ்
     public const _indian_rupee = "₹";
-    public const tamil_symbols = [
-        _day,
-        _month,
-        _year,
-        _debit,
-        _credit,
-        _rupee,
-        _numeral,
-        _sri,
-        _ksha,
-        _ksh,
-        _indian_rupee,
+    public const TAMIL_SYMBOLS = [
+          self::_day,
+        self::_month,
+self::_year,
+       self::_debit,
+       self::_credit,
+       self::_rupee,
+       self::_numeral,
+       self::_sri,
+       self::_ksha,
+       self::_ksh,
+       self::_indian_rupee,
     ];
 
     ## total tamil letters in use, including sanskrit letters
@@ -738,19 +737,19 @@ class UTF8
         "க்ஷோ",
         "க்ஷௌ",
     ];
-    /*public final static getUyirLetters(self){
+
+    final public static function getUyirLetters()
+    {
         return  ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"];
-         }*/
+    }
     public static function getGrandhaMeiLetters()
     {
         return array_merge(self::MEI_LETTERS, self::sanskrit_mei_letters);
     }
-    //nst grantha_mei_letters = ;
     public static function grandhaAgaramLetters()
     {
         return array_merge(self::AGARAM_LETTERS, self::sanskrit_letters);
     }
-    //  copy(tamil_letters[tamil_letters.index("கா") - 1:]);
 
     public static function getGranthaUyirmeiLetters()
     {
@@ -760,24 +759,17 @@ class UTF8
     }
     public static function getTamil247()
     {
-        echo self::ayudha_letter;
         return array_merge([], [], self::uyir_letters, self::mei_letters, self::uyirmei_letters);
     }
 
-    public static function getTamilNumbers()
+    public static function getTamilDigits()
     {
         return array_merge(self::tamil_digit_1to10, [self::tamil_digit_100], [self::tamil_digit_1000]);
     }
 
-    /*
-    * helpful in situations where browser/app may recognize Unicode encoding
-    *    in the \u0b8e type syntax but not actual unicode glyph/code-point
-    */
-    public function to_unicode_repr($_letter)
-    {
-        return ;
-    }
-    ## length of the definitions
+
+
+    // length of the definitions
     public function getAccentLen()
     {
         return self::TA_ACCENT_LEN; //13 = 12 + 1
@@ -869,17 +861,48 @@ class UTF8
         }
     }
     //Companion function to tamil
-    public static function getidx($letter){
-    	   foreach(range(0,self::getTamilLen()) as $index){
-	   					if(self::TAMIL_LETTERS[$index]===$letter)
-						return $index;
-						
-	   }
-	   throw new \Exception("Cannot find letter in Tamil arichuvadi");
+    public static function getidx($letter)
+    {
+        foreach (range(0, self::getTamilLen()) as $index) {
+            if (self::TAMIL_LETTERS[$index] === $letter) {
+                return $index;
+            }
+
+        }
+        throw new \Exception("Cannot find letter in Tamil arichuvadi");
+    }
+
+    public static function getTamilSymbols()
+    {
+        return self::TAMIL_SYMBOLS;
+    }
+
+    public static function tamil_sorted($array_data, $key)
+    {
+        //Implement
+    }
+    //Convertors
+    public static function toUnicodeRepr($letters)
+    {
+
+        $codePoints = [];
+        for ($i = 0; $i < mb_strlen($letters, 'UTF-8'); $i++) {
+            // Get the character at the current position
+            $char = mb_substr($letters, $i, 1, 'UTF-8');
+            // Get the Unicode code point of the character
+            echo $char;
+            $codePoint = mb_ord($char, 'UTF-8');
+            // Format it as a Unicode escape sequence
+            $codePoints[] = sprintf('\\u%04x', $codePoint);
+        }
+        return "u'".implode("", $codePoints)."'";
+
     }
 }
-echo "get idx : ".UTF8::getidx('a');
+echo "Tamil symbols : ".print_r(UTF8::getTamilSymbols(), 1).PHP_EOL;
 return ;
+echo "to_unicode_repr".UTF8::toUnicodeRepr("ஏகரம்").PHP_EOL;
+echo "get idx : ".UTF8::getidx('a');
 echo "Tamil Text".UTF8::tamil(2);
 echo "Mei to Agaram : ".UTF8::meiToAgaram('ம்');
 echo "Uyrimei Constructed : ".UTF8::uyirmeiConstructed(1, 0).PHP_EOL;
