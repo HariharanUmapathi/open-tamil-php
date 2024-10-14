@@ -1,4 +1,4 @@
-<?php
+<?PHP 
 /*
 * This PHP file uses the following encoding : utf-8
 * (C) 2024 Hariharan Umapathi <smarthariharan28@gmail.com>
@@ -12,6 +12,7 @@ error_reporting(E_ALL);
 
 class UTF8
 {
+    public const ASCII_LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     //Constants Definition Part
     public const TA_ACCENT_LEN = 13;//12 + 1
     public const TA_AYUDHA_LEN = 1;
@@ -51,8 +52,6 @@ class UTF8
     public const PRONOUN_LETTERS = ["அ", "இ", "உ"];
     public const SUTTEZHUTHTHU = self::PRONOUN_LETTERS;
 
-    public const QUESTIONSUFFIX_LETTERS = ["ஆ", "ஏ", "ஓ"];
-    public const VINAAEZHUTHTHU = self::QUESTIONSUFFIX_LETTERS;
     public const VALLINAM_LETTERS  = ["க்", "ச்", "ட்", "த்", "ப்", "ற்"];
     public const MELLINAM_LETTERS  = ["ங்", "ஞ்", "ண்", "ந்", "ம்", "ன்"];
     public const IDAYINAM_LETTERS  = ["ய்", "ர்", "ல்", "வ்", "ழ்", "ள்"];
@@ -387,9 +386,9 @@ class UTF8
     public const _ksh = "\u0b95\u0bcd\u0bb7\u0bcd";  # KSH - க்ஷ்
     public const _indian_rupee = "₹";
     public const TAMIL_SYMBOLS = [
-          self::_day,
-        self::_month,
-self::_year,
+       self::_day,
+       self::_month,
+       self::_year,
        self::_debit,
        self::_credit,
        self::_rupee,
@@ -422,6 +421,7 @@ self::_year,
         "ச்",
         "ட்",
         "த்",
+
         "ப்",
         "ற்",
         "ஞ்",
@@ -737,6 +737,210 @@ self::_year,
         "க்ஷோ",
         "க்ஷௌ",
     ];
+    public const  VANTRODAR_UGARAM = ["கு", "சு", "டு", "து", "பு", "று"]; //வன்றொடர் உகரம்
+    public const UYIR_MEI_KURIL = [
+        "க",
+        "கி",
+        "கு",
+        "கெ",
+        "கொ",
+        "கௌ",
+        "ச",
+        "சி",
+        "சு",
+        "செ",
+        "சொ",
+        "சௌ",
+        "ட",
+        "டி",
+        "டு",
+        "டெ",
+        "டொ",
+        "டௌ",
+        "த",
+        "தி",
+        "து",
+        "தெ",
+        "தொ",
+        "தௌ",
+        "ப",
+        "பி",
+        "பு",
+        "பெ",
+        "பொ",
+        "பௌ",
+        "ற",
+        "றி",
+        "று",
+        "றெ",
+        "றொ",
+        "றௌ",
+        "ஞ",
+        "ஞி",
+        "ஞு",
+        "ஞெ",
+        "ஞொ",
+        "ஞௌ",
+        "ங",
+        "ஙி",
+        "ஙு",
+        "ஙெ",
+        "ஙொ",
+        "ஙௌ",
+        "ண",
+        "ணி",
+        "ணு",
+        "ணெ",
+        "ணொ",
+        "ணௌ",
+        "ந",
+        "நி",
+        "நு",
+        "நெ",
+        "நொ",
+        "நௌ",
+        "ம",
+        "மி",
+        "மு",
+        "மெ",
+        "மொ",
+        "மௌ",
+        "ன",
+        "னி",
+        "னு",
+        "னெ",
+        "னொ",
+        "னௌ",
+        "ய",
+        "யி",
+        "யு",
+        "யெ",
+        "யொ",
+        "யௌ",
+        "ர",
+        "ரி",
+        "ரு",
+        "ரெ",
+        "ரொ",
+        "ரௌ",
+        "ல",
+        "லி",
+        "லு",
+        "லெ",
+        "லொ",
+        "லௌ",
+        "வ",
+        "வி",
+        "வு",
+        "வெ",
+        "வொ",
+        "வௌ",
+        "ழ",
+        "ழி",
+        "ழு",
+        "ழெ",
+        "ழொ",
+        "ழௌ",
+        "ள",
+        "ளி",
+        "ளு",
+        "ளெ",
+        "ளொ",
+        "ளௌ",
+    ];
+
+    public const UYIR_MEI_NEDIL = [
+        "கா",
+        "கீ",
+        "கூ",
+        "கே",
+        "கோ",
+        "சா",
+        "சீ",
+        "சூ",
+        "சே",
+        "சோ",
+        "டா",
+        "டீ",
+        "டூ",
+        "டே",
+        "டோ",
+        "தா",
+        "தீ",
+        "தூ",
+        "தே",
+        "தோ",
+        "பா",
+        "பீ",
+        "பூ",
+        "பே",
+        "போ",
+        "றா",
+        "றீ",
+        "றூ",
+        "றே",
+        "றோ",
+        "ஞா",
+        "ஞீ",
+        "ஞூ",
+        "ஞே",
+        "ஞோ",
+        "ஙா",
+        "ஙீ",
+        "ஙூ",
+        "ஙே",
+        "ஙோ",
+        "ணா",
+        "ணீ",
+        "ணூ",
+        "ணே",
+        "ணோ",
+        "நா",
+        "நீ",
+        "நூ",
+        "நே",
+        "நோ",
+        "மா",
+        "மீ",
+        "மூ",
+        "மே",
+        "மோ",
+        "னா",
+        "னீ",
+        "னூ",
+        "னே",
+        "னோ",
+        "யா",
+        "யீ",
+        "யூ",
+        "யே",
+        "யோ",
+        "ரா",
+        "ரீ",
+        "ரூ",
+        "ரே",
+        "ரோ",
+        "லா",
+        "லீ",
+        "லூ",
+        "லே",
+        "லோ",
+        "வா",
+        "வீ",
+        "வூ",
+        "வே",
+        "வோ",
+        "ழா",
+        "ழீ",
+        "ழூ",
+        "ழே",
+        "ழோ",
+        "ளா",
+        "ளீ",
+        "ளூ",
+        "ளே",
+        "ளோ",
+    ];
 
     final public static function getUyirLetters()
     {
@@ -898,8 +1102,50 @@ self::_year,
         return "u'".implode("", $codePoints)."'";
 
     }
+    public static function __all_symbols()
+    {
+        return array_merge(self::ACCENT_SYMBOLS, self::PULLI_SYMBOLS);
+    }
+    public static function cmp($x, $y)
+    {
+        return strcmp($x, $y);
+    }
+    /*
+    * input word was string or array sequence
+    * return true if word_input has any English letters in the string
+    */
+    public static function getAsciiLetters()
+    {
+        return mb_str_split(self::ASCII_LETTERS);
+    }
+    public static function hasEnglish($word_input)
+    {
+        $letters = self::getAsciiLetters();
+        $count = 0;
+        for ($i = 0;$i < strlen($word_input);$i++) {
+            if (array_search($word_input[$i], $letters) >= -1) {
+                $count++;
+            }
+        }
+        return $count > 0 ? true : false;
+        if (strlen($word_input) > 0) {
+            return false;
+        }
+    }
+    public static function hasTamil($word_input){
+        $word_input = mb_str_split($word_input);
+        foreach(self::TAMIL_LETTERS as $letter){
+            if(array_search($letter,$word_input)>0)
+                return true;
+        }
+        return false;
+    }
 }
-echo "Tamil symbols : ".print_r(UTF8::getTamilSymbols(), 1).PHP_EOL;
+echo "HAS tamil : ".UTF8::hasTamil("தமிழ்").PHP_EOL;
+echo "HAS tamil : ".UTF8::hasTamil("abcd").PHP_EOL;
+//echo "_credit : ".UTF8::_mei;
+//echo "__all_symbols : ".print_r(UTF8::__all_symbols(),1).PHP_EOL;
+//echo "Tamil symbols : ".print_r(UTF8::getTamilSymbols(), 1).PHP_EOL;
 return ;
 echo "to_unicode_repr".UTF8::toUnicodeRepr("ஏகரம்").PHP_EOL;
 echo "get idx : ".UTF8::getidx('a');
