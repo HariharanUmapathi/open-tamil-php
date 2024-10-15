@@ -1,4 +1,5 @@
-<?PHP 
+<?php
+
 /*
 * This PHP file uses the following encoding : utf-8
 * (C) 2024 Hariharan Umapathi <smarthariharan28@gmail.com>
@@ -6,6 +7,8 @@
 */
 
 namespace Tamil;
+
+use IntlChar;
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
@@ -1132,17 +1135,134 @@ class UTF8
             return false;
         }
     }
-    public static function hasTamil($word_input){
+    public static function hasTamil($word_input)
+    {
         $word_input = mb_str_split($word_input);
-        foreach(self::TAMIL_LETTERS as $letter){
-            if(array_search($letter,$word_input)>0)
+        foreach (self::TAMIL_LETTERS as $letter) {
+            if (array_search($letter, $word_input) > 0) {
                 return true;
+            }
         }
         return false;
     }
+
+    public static function isTamil($letter)
+    {
+        return in_array($letter, self::TAMIL_LETTERS);
+    }
+    public static function getWordsIterable($letters, $tamilOnly = false)
+    {
+        $buffer = [];
+        foreach (mb_str_split($letters) as $idx => $letter) {
+            echo $letter;
+            if (IntlChar::isspace($letter)) {
+                if (self::isTamil($letter) || !$tamilOnly) {
+                    array_push($buffer, $letter);
+                } elseif (count($buffer) > 0) {
+                    yield "".join($buffer);
+                    $buffer = [];
+                }
+            }
+
+
+        }
+        if (count($buffer) > 0) {
+            yield "".join($buffer);
+        }
+    }
+    public static function getTamilWords($letters)
+    {
+        if (!is_array($letters)) {
+            throw new \Exception("method needs to be used with array generated from ".self::class."::getLetters()");
+        }
+
+        $words = [];
+        foreach (self::getWordsIterable($letters, $tamilOnly = true) as $word) {
+            array_push($words, $word);
+        }
+        return $words;
+
+    }
+    //    public static function getLetters($word){
+    //  $ta_letters = [];
+    //  $not_empty= false;
+    //
+    //  foreach($word as $char){
+    //  }
+    //
+    //    }
+    //    public static function hex2unicode($input_data,$offset=3){
+    /*
+     *
+     *எ.கா. 'b9abc1b95bbeba4bbebb0baebcd' = 'சுகாதாரம்'
+     * எ.கா. 'b95' = அ
+     */
+    //  $result = [];
+    //  foreach( mb_split("\\-|/",$input_data) as $s)
+    //      echo $s;
+    //}
+public static function isTamilUnicode($char)
+    {
+        // Check if the character falls within the Tamil Unicode range
+        $codePoint = mb_ord($char);
+        return ($codePoint >= 0x0B80 && $codePoint <= 0x0BFF);
+    }
+    public static function hex2unicode($ip_data, $offset = 3)
+    {
+        $result = [];
+
+        // Split the input data by '-' or '/'
+        $parts = preg_split("/[-\/]/", $ip_data);
+
+        foreach ($parts as $s) {
+            $unicodeString = '';
+
+            // Process the hex string in chunks of the specified offset
+            for ($i = 0; $i < strlen($s); $i += $offset) {
+                $hexChunk = substr($s, $i, $offset);
+                // Convert hex to integer, then to a UTF-8 character
+                $unicodeString .= mb_chr(hexdec($hexChunk), 'UTF-8');
+            }
+
+            $result[] = $unicodeString;
+        }
+
+        return "".join($result);
+    }
+    public static function unicode2hex($ip_data, $offset = 3)
+    {
+        $result = '';
+
+        // Get individual letters from the input string
+        $letters = preg_split('//u', $ip_data, -1, PREG_SPLIT_NO_EMPTY);
+
+        foreach ($letters as $letter) {
+            // Check if the letter is a Tamil Unicode character
+            if (self::isTamilUnicode($letter)) {
+                // Convert the character to its Unicode code point and format it
+                $codePoint = unpack('H*', mb_convert_encoding($letter, 'UTF-32BE'))[1];
+                $result .= preg_replace("/[0]+/","",str_pad($codePoint, $offset, '0', STR_PAD_LEFT));
+            } else {
+                // Append the letter directly if it's not Tamil Unicode
+                $result .= $letter;
+            }
+        }
+
+        return $result;b
+    }
+
+    
+
 }
-echo "HAS tamil : ".UTF8::hasTamil("தமிழ்").PHP_EOL;
-echo "HAS tamil : ".UTF8::hasTamil("abcd").PHP_EOL;
+echo UTF8::hex2unicode("b9abc1b95bbeba4bbebb0baebcd").PHP_EOL;
+echo UTF8::unicode2hex("சுகாதாரம்").PHP_EOL;
+//echo "HAS tamil : ".UTF8::hasTamil("தமிழ்").PHP_EOL;
+//echo "HAS tamil : ".UTF8::hasTamil("abcd").PHP_EOL;
+//echo "get_word_iterable: ";
+//foreach(UTF8::getWordsIterable("") as $word){
+//  echo $word;}
+//  ;
+//echo "GET TAMIL WORDS ".UTF8::getTamilWords(UTF8::getLetters("ABCD தமிழ் EFGH திருபுவனம் தமிழ் தினகரன் தமிழ் தமிழ் தமிழ் தமிழ்")).PHP_EOL;
 //echo "_credit : ".UTF8::_mei;
 //echo "__all_symbols : ".print_r(UTF8::__all_symbols(),1).PHP_EOL;
 //echo "Tamil symbols : ".print_r(UTF8::getTamilSymbols(), 1).PHP_EOL;
