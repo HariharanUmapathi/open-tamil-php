@@ -9,6 +9,7 @@
 namespace Tamil;
 
 use IntlChar;
+use Exception;
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
@@ -1076,7 +1077,7 @@ class UTF8
             }
 
         }
-        throw new \Exception("Cannot find letter in Tamil arichuvadi");
+        throw new Exception("Cannot find letter in Tamil arichuvadi");
     }
 
     public static function getTamilSymbols()
@@ -1103,6 +1104,32 @@ class UTF8
             $codePoints[] = sprintf('\\u%04x', $codePoint);
         }
         return "u'".implode("", $codePoints)."'";
+
+    }
+    public static function allTamil($word_input)
+    {
+        $length = strlen($word_input);
+        $tamil_letters=[];
+        $ta_letter_count = 0;
+        if (is_string($word_input)) {
+            $letter_array = mb_str_split($word_input);
+        }
+
+        if (is_array($word_input)) {
+            
+        }else {
+            foreach ($letter_array as $letter) {
+                
+                echo $letter;
+                if (in_array($letter, self::TAMIL_LETTERS)) {
+                    $ta_letter_count++;
+                }
+            }
+        }
+        echo "TA LETTER COUNT : ".$ta_letter_count;
+        echo "LETTER ARRAY: ".count($letter_array);
+        print_r($letter_array);
+        return $ta_letter_count === count($letter_array);
 
     }
     public static function __all_symbols()
@@ -1173,7 +1200,7 @@ class UTF8
     public static function getTamilWords($letters)
     {
         if (!is_array($letters)) {
-            throw new \Exception("method needs to be used with array generated from ".self::class."::getLetters()");
+            throw new Exception("method needs to be used with array generated from ".self::class."::getLetters()");
         }
 
         $words = [];
@@ -1201,7 +1228,7 @@ class UTF8
     //  foreach( mb_split("\\-|/",$input_data) as $s)
     //      echo $s;
     //}
-public static function isTamilUnicode($char)
+    public static function isTamilUnicode($char)
     {
         // Check if the character falls within the Tamil Unicode range
         $codePoint = mb_ord($char);
@@ -1241,21 +1268,79 @@ public static function isTamilUnicode($char)
             if (self::isTamilUnicode($letter)) {
                 // Convert the character to its Unicode code point and format it
                 $codePoint = unpack('H*', mb_convert_encoding($letter, 'UTF-32BE'))[1];
-                $result .= preg_replace("/[0]+/","",str_pad($codePoint, $offset, '0', STR_PAD_LEFT));
+                $result .= preg_replace("/[0]+/", "", str_pad($codePoint, $offset, '0', STR_PAD_LEFT));
             } else {
                 // Append the letter directly if it's not Tamil Unicode
                 $result .= $letter;
             }
         }
 
-        return $result;b
+        return $result;
     }
 
-    
+    public static function classifyLetter($letter)
+    {
+
+
+        /*
+        Report if Tamil letter is kuril, nedil, aytham, vallinam,
+        mellinam, idayinam, uyirmei or grantham letters.
+        @param $letter
+        @return String $type.
+        */
+        if (!is_string($letter)) {
+            throw new \Exception(sprintf("Input'%s' must be unicode, not just string", letter));
+        }
+
+        $kinds = [
+            "kuril",
+          "nedil",
+          "ayudham",
+          "vallinam",
+          "mellinam",
+          "idayinam",
+          "uyirmei",
+          "tamil_or_grantham",
+];
+        if (in_array($letter, self::UYIR_LETTERS)) {
+            if (in_array($letter, self::KURIL_LETTERS)) {
+                return "kuril";
+            } elseif (in_array($letter, self::NEDIL_LETTERS)) {
+                return "nedil";
+            } elseif ($letter == self::AYUDHA_LETTER) {
+                return "ayudham";
+            }
+        }
+
+        if (in_array($letter, self::MEI_LETTERS)) {
+            if (in_array($letter, self::MELLINAM_LETTERS)) {
+                return "mellinam";
+            } elseif (in_array($letter, self::VALLINAM_LETTERS)) {
+                return "vallinam";
+            } elseif (in_array($letter, self::IDAYINAM_LETTERS)) {
+                return "idayinam";
+            }
+        }
+
+        if (in_array($letter, self::UYIRMEI_LETTERS)) {
+            return "uyirmei";
+        }
+        if (in_array($letter, self::TAMIL_LETTERS)) {
+            return "tamil_or_grantham";
+        }
+        if (IntlChar::isalpha($letter)) {
+            return "english";
+        } elseif (IntlChar::isdigit($letter)) {
+            return "digit";
+        }
+        throw new Exception(sprintf("Unknown letter '%s' neither Tamil nor English or number", $letter));
+    }
 
 }
-echo UTF8::hex2unicode("b9abc1b95bbeba4bbebb0baebcd").PHP_EOL;
-echo UTF8::unicode2hex("சுகாதாரம்").PHP_EOL;
+echo UTF8::allTamil("காதாரம்");
+//echo UTF8::classifyLetter("சு");
+//echo UTF8::hex2unicode("b9abc1b95bbeba4bbebb0baebcd").PHP_EOL;
+//echo UTF8::unicode2hex("").PHP_EOL;
 //echo "HAS tamil : ".UTF8::hasTamil("தமிழ்").PHP_EOL;
 //echo "HAS tamil : ".UTF8::hasTamil("abcd").PHP_EOL;
 //echo "get_word_iterable: ";
