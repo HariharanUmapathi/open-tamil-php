@@ -954,9 +954,9 @@ class UTF8
     {
         return array_merge(self::MEI_LETTERS, self::sanskrit_mei_letters);
     }
-    public static function grandhaAgaramLetters()
+    public static function getGranthaAgaramLetters()
     {
-        return array_merge(self::AGARAM_LETTERS, self::sanskrit_letters);
+        return array_merge(self::AGARAM_LETTERS, self::SANSKRIT_LETTERS);
     }
 
     public static function getGranthaUyirmeiLetters()
@@ -1106,20 +1106,71 @@ class UTF8
         return "u'".implode("", $codePoints)."'";
 
     }
+    public static function getGLL()
+    {
+        return array_merge(self::UYIR_LETTERS, [self::AYUDHA_LETTER], self::getGranthaAgaramLetters());
+    }
+    public static function isTamilUnicodeValue($letter)
+    {
+        return true;
+    }
+    public static function getLetters($word_input)
+    {
+        /*Splits the @word into a character-list of tamil/english
+    characters present in the stream. This routine provides a robust tokenizer
+    for Tamil unicode letters.*/
+        $ta_letters = [];
+        $not_empty = false;
+
+        foreach (mb_str_split($word_input) as $letter) {
+            if (in_array($letter, self::getGLL())) {
+                $ta_letters[] = $letter;
+                $not_empty = true;
+                continue;
+            }
+
+            if (in_array($letter, self::ACCENT_SYMBOLS)) {
+
+                if (!$not_empty) {
+                    $ta_letters[] = $letter;
+                    $not_empty = true;
+                } else {
+                    $ta_letters[\array_key_last($ta_letters)] .= $letter;
+                }
+                continue;
+            }
+            $char_val = mb_ord($letter);
+            if ($char_val < 256 || !self::isTamilUnicodeValue($letter)) {
+                $ta_letter[] = $letter;
+                continue;
+            }
+
+
+            if ($not_empty) {
+                $ta_letters[\array_key_last($ta_letters)] .= $letter;
+            } else {
+                $ta_letters[] = $letter;
+                $not_empty = true;
+            }
+
+
+        }
+        return $ta_letters;
+    }
     public static function allTamil($word_input)
     {
         $length = strlen($word_input);
-        $tamil_letters=[];
+        $tamil_letters = [];
         $ta_letter_count = 0;
         if (is_string($word_input)) {
             $letter_array = mb_str_split($word_input);
         }
 
         if (is_array($word_input)) {
-            
-        }else {
+
+        } else {
             foreach ($letter_array as $letter) {
-                
+
                 echo $letter;
                 if (in_array($letter, self::TAMIL_LETTERS)) {
                     $ta_letter_count++;
@@ -1336,8 +1387,8 @@ class UTF8
         throw new Exception(sprintf("Unknown letter '%s' neither Tamil nor English or number", $letter));
     }
 
-}
-echo UTF8::allTamil("காதாரம்");
+}    print_r(\count(UTF8::getLetters("காதாரம்")));
+//echo UTF8::allTamil("காதாரம்");
 //echo UTF8::classifyLetter("சு");
 //echo UTF8::hex2unicode("b9abc1b95bbeba4bbebb0baebcd").PHP_EOL;
 //echo UTF8::unicode2hex("").PHP_EOL;
