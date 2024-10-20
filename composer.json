@@ -18,7 +18,9 @@
         }
     },
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+	"php":"^7.4"
+    },
     "scripts":{
     	"lint":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./src",
 	"lint-tests":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./tests",
