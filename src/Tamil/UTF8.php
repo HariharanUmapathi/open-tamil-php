@@ -1057,6 +1057,10 @@ class UTF8
     }
 
     //Utility functions
+    public static function toArray($word){
+    	   return array_map(function($char){
+	   return "u'$char'";},mb_str_split($word));
+    }
     /*
     * construct uyirmei letter give mei index and uyir index
     */
