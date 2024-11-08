@@ -9,9 +9,9 @@ I hope PHP is installed already 😁
 Install Composer (Version 1 iam using)
 Add Composer to Environment path if you are using Windows 
 
--- `composer setup` to run the dependency tools installation php-cs-fixer 
--- `composer install` to install the dev dependencies phpunit 
--- `composer run-script` to run the script you have pointed in your composer.json
--- `composer lint` to run the php-cs-fixer to fix the code alignment in src/ folder
--- `composer lint-test` to run the php-cs-fixer to fix the code alignment tests/ folder
--- `composer test` to run the unittests 
+- `composer setup` to run the dependency tools installation php-cs-fixer 
+- `composer install` to install the dev dependencies phpunit 
+- `composer run-script` to run the script you have pointed in your composer.json
+- `composer lint` to run the php-cs-fixer to fix the code alignment in src/ folder
+- `composer lint-test` to run the php-cs-fixer to fix the code alignment tests/ folder
+- `composer test` to run the unittests 
