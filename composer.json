@@ -19,15 +19,14 @@
     },
     "minimum-stability": "stable",
     "require": {
-	"php":"^7.4"
+	    "php":"^7.4"
     },
     "scripts":{
     	"lint":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./src",
-	"lint-tests":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./tests",
-	"test":"phpunit ./tests/TestCaseTest.php",
-	"run-program":"@php ./src/Tamil/UTF8.php",
-	"check-completion":"python3 ./src/Tamil/utf8.test.py",
-	"setup":"@php setup.php"
+	    "lint-tests":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./tests",
+	    "test":"vendor/bin/phpunit --bootstrap src/bootstrap.php ./tests",
+	    "check-completion":"python3 ./src/Tamil/utf8.test.py",
+	    "setup":"@php setup.php"
     }
     
 }
