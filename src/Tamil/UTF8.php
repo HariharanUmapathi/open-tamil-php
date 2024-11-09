@@ -15,7 +15,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 if (version_compare(PHP_VERSION, '7.4.0', '<')) {
-    trigger_error("PHP 7.4.0 or higher required to operate Open-Tamil library",E_USER_ERROR);
+    trigger_error("PHP 7.4.0 or higher required to operate Open-Tamil library", E_USER_ERROR);
 }
 class UTF8
 {
@@ -30,6 +30,7 @@ class UTF8
     public const TA_UYIRMEI_LEN = 216;
     public const TA_GRANTHA_UYIRMEI_LEN = 24 * 12;
     public const TA_LETTERS_LEN = 247 + 6 * 12 + 22 + 4 - self::TA_AGARAM_LEN - 4; //323
+
 
     //Individual Vowels
     public const VOWEL_A = "அ";
@@ -393,17 +394,17 @@ class UTF8
     public const _ksh = "\u0b95\u0bcd\u0bb7\u0bcd";  # KSH - க்ஷ்
     public const _indian_rupee = "₹";
     public const TAMIL_SYMBOLS = [
-       self::_day,
-       self::_month,
-       self::_year,
-       self::_debit,
-       self::_credit,
-       self::_rupee,
-       self::_numeral,
-       self::_sri,
-       self::_ksha,
-       self::_ksh,
-       self::_indian_rupee,
+        self::_day,
+        self::_month,
+        self::_year,
+        self::_debit,
+        self::_credit,
+        self::_rupee,
+        self::_numeral,
+        self::_sri,
+        self::_ksha,
+        self::_ksh,
+        self::_indian_rupee,
     ];
 
     ## total tamil letters in use, including sanskrit letters
@@ -950,22 +951,28 @@ class UTF8
     ];
     /* Constant Definition Ends */
     /* Function Definition Starts */
-    public static function isNormalized(){
+    public static function isNormalized()
+    {
     }
-    public static function isTamilUnicodeCodept(){
-    
+    public static function isTamilUnicodeCodept()
+    {
+
     }
-    public static function isTamilUnicodePredicate(){
-    
+    public static function isTamilUnicodePredicate()
+    {
+
     }
-    public static function wordIntersection(){
-    
+    public static function wordIntersection()
+    {
+
     }
-    public static function splitMeiUyir(){
-    
+    public static function splitMeiUyir()
+    {
+
     }
-    public static function joinMeiUyir(){
-    
+    public static function joinMeiUyir()
+    {
+
     }
     final public static function getUyirLetters()
     {
@@ -973,7 +980,7 @@ class UTF8
     }
     public static function getGrandhaMeiLetters()
     {
-        return array_merge(self::MEI_LETTERS, self::sanskrit_mei_letters);
+        return array_merge(self::MEI_LETTERS, self::SANSKRIT_MEI_LETTERS);
     }
     public static function getGranthaAgaramLetters()
     {
@@ -982,18 +989,18 @@ class UTF8
 
     public static function getGranthaUyirmeiLetters()
     {
-        $start = array_search(self::tamil_letters, "கா") - 1;
+        $start = array_search("கா",self::TAMIL_LETTERS) - 1;
 
-        return array_slice(self::tamil_letters, $start);
+        return array_slice(self::TAMIL_LETTERS, $start);
     }
     public static function getTamil247()
     {
-        return array_merge([], [], self::uyir_letters, self::mei_letters, self::uyirmei_letters);
+        return array_merge([], [], self::UYIR_LETTERS, self::MEI_LETTERS, self::UYIRMEI_LETTERS);
     }
 
     public static function getTamilDigits()
     {
-        return array_merge(self::tamil_digit_1to10, [self::tamil_digit_100], [self::tamil_digit_1000]);
+        return array_merge(self::TAMIL_DIGIT_1TO10, [self::TAMIL_DIGIT_100], [self::TAMIL_DIGIT_1000]);
     }
 
 
@@ -1057,9 +1064,11 @@ class UTF8
     }
 
     //Utility functions
-    public static function toArray($word){
-    	   return array_map(function($char){
-	   return "u'$char'";},mb_str_split($word));
+    public static function toArray($word)
+    {
+        return array_map(function ($char) {
+            return "u'$char'";
+        }, mb_str_split($word));
     }
     /*
     * construct uyirmei letter give mei index and uyir index
@@ -1068,7 +1077,7 @@ class UTF8
     {
         if ($uyir_idx >= 0 && $uyir_idx < self::getUyirLen()) {
             if ($mei_idx >= 0 && $mei_idx < 6 + self::getMeiLen()) {
-                return self::grandhaAgaramLetters()[$mei_idx].self::ACCENT_SYMBOLS[$uyir_idx];
+                return self::getGranthaAgaramLetters()[$mei_idx].self::ACCENT_SYMBOLS[$uyir_idx];
             }
         }
 
@@ -1143,8 +1152,8 @@ class UTF8
     public static function getLetters($word_input)
     {
         /*Splits the @word into a character-list of tamil/english
-    characters present in the stream. This routine provides a robust tokenizer
-    for Tamil unicode letters.*/
+        characters present in the stream. This routine provides a robust tokenizer
+        for Tamil unicode letters.*/
         $ta_letters = [];
         $not_empty = false;
 
@@ -1297,10 +1306,10 @@ class UTF8
     //    }
     //    public static function hex2unicode($input_data,$offset=3){
     /*
-     *
-     *எ.கா. 'b9abc1b95bbeba4bbebb0baebcd' = 'சுகாதாரம்'
-     * எ.கா. 'b95' = அ
-     */
+    *
+    *எ.கா. 'b9abc1b95bbeba4bbebb0baebcd' = 'சுகாதாரம்'
+    * எ.கா. 'b95' = அ
+    */
     //  $result = [];
     //  foreach( mb_split("\\-|/",$input_data) as $s)
     //      echo $s;
@@ -1366,19 +1375,19 @@ class UTF8
         @return String $type.
         */
         if (!is_string($letter)) {
-            throw new \Exception(sprintf("Input'%s' must be unicode, not just string", letter));
+            throw new \Exception(sprintf("Input'%s' must be unicode, not just string", $letter));
         }
 
         $kinds = [
             "kuril",
-          "nedil",
-          "ayudham",
-          "vallinam",
-          "mellinam",
-          "idayinam",
-          "uyirmei",
-          "tamil_or_grantham",
-];
+            "nedil",
+            "ayudham",
+            "vallinam",
+            "mellinam",
+            "idayinam",
+            "uyirmei",
+            "tamil_or_grantham",
+        ];
         if (in_array($letter, self::UYIR_LETTERS)) {
             if (in_array($letter, self::KURIL_LETTERS)) {
                 return "kuril";
@@ -1414,13 +1423,13 @@ class UTF8
     }
 
     /*
-      மாத்திரை கணித்தல்
+    மாத்திரை கணித்தல்
     */
     public static function calculateUyirNedilKurilMathirai($letter)
     {
         /*
-          calculate mathirai helper routine
-         */
+        calculate mathirai helper routine
+        */
         if (in_array($letter, self::UYIR_MEI_KURIL)) {
             return 1;
         } elseif (in_array($letter, self::UYIR_MEI_NEDIL)) {
@@ -1439,34 +1448,34 @@ class UTF8
     {
         /* மாத்திரை கணித்தல்: ஒரு தமிழ் சொல்லின் @letters மாத்திரை அளவை கணிக்கும்.
 
-    விதிகள்:
-    நெடில் எழுத்துக்கள் ஒலிக்கும் கால அளவு 2 மாத்திரை.
-    குறில் எழுத்துக்கள் ஒலிக்கும் கால அளவு 1 மாத்திரை.
-    மெய் எழுத்துக்கள் ஒலிக்கும் கால அளவு 1/2 மாத்திரை.
-    ஆய்த எழுத்தை ஒலிக்க ஆகும் கால அளவு 1/2 மாத்திரை.
-    மகரக் குறுக்கம் "ன்", "ண்" ஐ தொடர்ந்து வரும் "ம்" ஆனது தன அரை மாத்திரையில் இருந்து கால் மாத்திரையாய் ஒலிக்கும்
-    ஒளகாரக் குறுக்கம் சொல்லின் ஆரம்பத்தில் வரும் ஒள, மெள, வௌ என்பன 1 மாத்திரையில் ஒலித்தல்
+        விதிகள்:
+        நெடில் எழுத்துக்கள் ஒலிக்கும் கால அளவு 2 மாத்திரை.
+        குறில் எழுத்துக்கள் ஒலிக்கும் கால அளவு 1 மாத்திரை.
+        மெய் எழுத்துக்கள் ஒலிக்கும் கால அளவு 1/2 மாத்திரை.
+        ஆய்த எழுத்தை ஒலிக்க ஆகும் கால அளவு 1/2 மாத்திரை.
+        மகரக் குறுக்கம் "ன்", "ண்" ஐ தொடர்ந்து வரும் "ம்" ஆனது தன அரை மாத்திரையில் இருந்து கால் மாத்திரையாய் ஒலிக்கும்
+        ஒளகாரக் குறுக்கம் சொல்லின் ஆரம்பத்தில் வரும் ஒள, மெள, வௌ என்பன 1 மாத்திரையில் ஒலித்தல்
 
         */
         $ikaram = [
-        "கி",
-        "சி",
-        "டி",
-        "தி",
-        "பி",
-        "றி",
-        "ஞி",
-        "ஙி",
-        "ணி",
-        "நி",
-        "மி",
-        "னி",
-        "யி",
-        "ரி",
-        "லி",
-        "வி",
-        "ழி",
-        "ளி",
+            "கி",
+            "சி",
+            "டி",
+            "தி",
+            "பி",
+            "றி",
+            "ஞி",
+            "ஙி",
+            "ணி",
+            "நி",
+            "மி",
+            "னி",
+            "யி",
+            "ரி",
+            "லி",
+            "வி",
+            "ழி",
+            "ளி",
         ];
 
         $aikaaram = [
@@ -1493,7 +1502,7 @@ class UTF8
         $yakaram = [
             "ய", "யா", "யி", "யீ", "யு", "யூ", "யெ", "யே", "யை", "யொ", "யோ", "யௌ"
         ];
-        $single_word = self::getLetters($letters);
+        $single_word = self::getLetters($letter);
         $mathiraivarisai = [];
         foreach ($single_word as $index => $letter) {
             //குற்றியலுகரம்
@@ -1501,7 +1510,7 @@ class UTF8
                 if ($index == 0) {
                     $maththiraivarisai[] = 1;
                 } elseif ($index == 1) {
-                    if (!in_array($single_word[0], $uyir_mei_kuril) && !in_array($single_word[0], self::KURIL_LETTERS)) {
+                    if (!in_array($single_word[0], self::UYIR_MEI_KURIL) && !in_array($single_word[0], self::KURIL_LETTERS)) {
 
                         $maththiraivarisai[] = 0.5;
                     } else {
@@ -1576,90 +1585,30 @@ class UTF8
             }
         }
 
-        print_r($maathiraivarisai);
+        print_r($mathiraivarisai);
 
-        return array_sum($maathriaivarisai);
+        return array_sum($mathiraivarisai);
 
 
     }
     public static function totalMaathirai($letters)
     {
         /*ஒரு சொல் அதன் எழுத்துக்களின் @letters  என்பதன் மாத்திரைகளை தனித்தனியே
-    கணிக்கிட்டு முழுமையாக அதன் சொல்-அளவான முழு மாத்திரை அளவை வெளியிடுகிறது.*/
+        கணிக்கிட்டு முழுமையாக அதன் சொல்-அளவான முழு மாத்திரை அளவை வெளியிடுகிறது.*/
         $text_string = explode(" ", $letters);
         $total_maaththiraivarisai = [];
         if (count($text_string) > 1) {
             foreach ($text_string as $word) {
-                $total_maaththiraivarisai[] = self::calculateMaththirai($word);
+                $total_maaththiraivarisai[] = self::calculateMathirai($word);
 
             }
         } else {
-            $total_maaththiraivarisai[] = self::calculateMaththirai($letters);
+            $total_maaththiraivarisai[] = self::calculateMathirai($letters);
         }
 
         return array_sum($total_maaththiraivarisai);
     }
 
- 
-   
+
+
 }
-//print_r(\count(UTF8::getLetters("காதாரம்")));
-//echo UTF8::allTamil("காதாரம்");
-//echo UTF8::classifyLetter("சு");
-//echo UTF8::hex2unicode("b9abc1b95bbeba4bbebb0baebcd").PHP_EOL;
-//echo UTF8::unicode2hex("").PHP_EOL;
-//echo "HAS tamil : ".UTF8::hasTamil("தமிழ்").PHP_EOL;
-//echo "HAS tamil : ".UTF8::hasTamil("abcd").PHP_EOL;
-//echo "get_word_iterable: ";
-//foreach(UTF8::getWordsIterable("") as $word){
-//  echo $word;}
-//  ;
-//echo "GET TAMIL WORDS ".UTF8::getTamilWords(UTF8::getLetters("ABCD தமிழ் EFGH திருபுவனம் தமிழ் தினகரன் தமிழ் தமிழ் தமிழ் தமிழ்")).PHP_EOL;
-//echo "_credit : ".UTF8::_mei;
-//echo "__all_symbols : ".print_r(UTF8::__all_symbols(),1).PHP_EOL;
-//echo "Tamil symbols : ".print_r(UTF8::getTamilSymbols(), 1).PHP_EOL;
-/*function test_total_maaththirai(){
-    $word_expected = [
-            "தமிழ்"=> 2.5,
-            "காதல்"=> 3.5,
-            "ஸ்"=> 0.0,
-            "குகன்"=> 2.5,
-            "ப்ரீதா"=> 4.5,
-        ];
-$actual=[];
-foreach($word_expected as $key=>$value){
-
-    $actual[$key]=UTF8::totalMaathirai($value);
-}
-print_r($word_expected);
-print_r($actual);
-}
-test_total_maaththirai();       */
-//echo "to_unicode_repr".UTF8::toUnicodeRepr("ஏகரம்").PHP_EOL;
-//echo "get idx : ".UTF8::getidx('');
-//echo "Mei to Agaram : ".UTF8::meiToAgarm('ம்');
-//echo "Tamil Text".UTF8::tamil(2);
-$unsorted=array_merge(get_class_methods(UTF8::class),get_class_vars(UTF8::class));
-sort($unsorted);
-
-print_r($unsorted);
-return ;
-
-
-
-
-echo "Uyrimei Constructed : ".UTF8::uyirmeiConstructed(1, 0).PHP_EOL;
-echo "Accent :".UTF8::getAccentLen().PHP_EOL;
-echo "Ayudha :".UTF8::getAyudhaLen().PHP_EOL;
-echo "Uyir   :".UTF8::getUyirLen().PHP_EOL;
-echo "Mei    :".UTF8::getMeiLen().PHP_EOL;
-echo "Agaram :".UTF8::getAgaramLen().PHP_EOL;
-echo "UyirMei:".UTF8::getUyirmeiLen().PHP_EOL.PHP_EOL;
-echo "Tamil Len : ".UTF8::getTamilLen().PHP_EOL;
-
-
-echo "Access Letters : ".UTF8::uyir(0).PHP_EOL;
-echo "2 : ".UTF8::agaram(0).PHP_EOL;
-echo "3 : ".UTF8::mei(0).":".UTF8::mei(19).PHP_EOL;
-echo "4 :".UTF8::uyirmei(147).PHP_EOL;
-echo "5 :".UTF8::meiToAgaram(UTF8::mei(0));
