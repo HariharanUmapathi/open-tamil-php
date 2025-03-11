@@ -2,3 +2,4 @@
 vendor/
 tools/
 *.test.py
+*docs/_build*

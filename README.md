@@ -15,3 +15,5 @@ Add Composer to Environment path if you are using Windows
 - `composer lint` to run the php-cs-fixer to fix the code alignment in src/ folder
 - `composer lint-test` to run the php-cs-fixer to fix the code alignment tests/ folder
 - `composer test` to run the unittests 
+- `composer view-docs` to run generated html docs in localhost 
+- `composer generate-docs` to run sphinx docs from the directory 
