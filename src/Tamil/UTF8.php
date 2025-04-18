@@ -962,42 +962,119 @@ class UTF8
     ];
     /* Constant Definition Ends */
     /* Function Definition Starts */
-    public static function isNormalized($text) {
-       /**
-        * find out if the letters like, "பொ" are written in canonical "ப + ொ"" graphemes then
-        * return True. If they are written like "ப + ெ + ா" then return False on first occurrence
-        * :param text: text
-        * :return: True if letters of word are in canonical representation
-        * 
-        */
-       
+    public static function isNormalized($text)
+    {
+        /**
+         * find out if the letters like, "பொ" are written in canonical "ப + ொ"" graphemes then
+         * return True. If they are written like "ப + ெ + ா" then return False on first occurrence
+         * :param text: text
+         * :return: True if letters of word are in canonical representation
+         * 
+         */
+
         $tlen = mb_strlen($text);
-        $predicate = function ($last_letter,$prev_letter) {
+        $predicate = function ($last_letter, $prev_letter) {
             $kaal = "ா";
             $laa = "ள";
-            $sinna_kombu = "ெ"; 
-            $periya_kombu ="ே";
-            
-            if($kaal==$last_letter and in_array($prev_letter,[$sinna_kombu,$periya_kombu]))
+            $sinna_kombu = "ெ";
+            $periya_kombu = "ே";
+
+            if ($kaal == $last_letter and in_array($prev_letter, [$sinna_kombu, $periya_kombu]))
                 return true;
-            if($laa==$last_letter and $prev_letter==$sinna_kombu)
+            if ($laa == $last_letter and $prev_letter == $sinna_kombu)
                 return true;
             return false;
         };
 
-        if($tlen < 2)
+        if ($tlen < 2)
             return true; # Single Character and empty string is always canocialized
-        elseif($tlen==2){
-            if($predicate(mb_substr($text,-1),mb_substr($text,-2)))
-            return false;
-        return true;
-        }    
+        elseif ($tlen == 2) {
+            if ($predicate(mb_substr($text, -1), mb_substr($text, -2)))
+                return false;
+            return true;
+        }
     }
-    public static function isTamilUnicodeCodept() {}
-    public static function isTamilUnicodePredicate() {}
-    public static function wordIntersection() {}
-    public static function splitMeiUyir() {}
-    public static function joinMeiUyir() {}
+    public static function isTamilUnicodeCodept(String $x)
+    {
+        /*
+    Check quickly if the given parameter @x (character) belongs to Tamil Unicode block.
+    :param x:
+    :return:
+    */
+        $intx = mb_ord($x);
+        return self::isTamilUnicodeValue($intx);
+    }
+    public static function isTamilUnicodePredicate($x)
+    {
+        /*
+    Predicate to work on string @x which is not processed by get_letters() to estimate if it is a Tamil string.
+    :param x: text string
+    :return: True or False based on @x being Tamil letters exclusively.
+    */
+        if (!self::isTamilUnicodecodept($x))
+            return false;
+        return count($x) > 1 && self::isTamilUnicodePredicate(mb_substr($x, 0, -1));
+    }
+    public static function wordIntersection()
+    {
+        /**
+         * # return a list of ordered-pairs containing positions
+         * that are common in word_a, and word_b; e.g.
+         * தேடுக x தடங்கல் -> one common letter க [(2,3)]
+         * சொல் x   தேடுக -> no common letters []
+         * return a list of tuples where word_a, word_b intersect
+         */
+    }
+    public static function splitMeiUyir($uyirmei_char)
+    {
+        /* This function split uyirmei compound character into mei + uyir characters
+    and returns array.*/
+        if (!is_string($uyirmei_char))
+            throw new \ValueError(sprintf("Passed input letter '%s' must be unicode, \
+                                not just string", $uyirmei_char));
+        if (in_array($uyirmei_char, self::MEI_LETTERS) || in_array($uyirmei_char, self::UYIR_LETTERS) || in_array($uyirmei_char, self::AYUDHA_LETTER))
+            return $uyirmei_char;
+        if (!in_array($uyirmei_char, self::getGranthaUyirmeiLetters())) {
+            if (!self::isNormalized($uyirmei_char)) {
+                $norm_char = self::unicodeNormalize($uyirmei_char);
+                $rval = self::splitMeiUyir($uyirmei_char);
+                return $rval;
+            }
+            throw new \ValueError(sprintf("Passed input letter '%s' is not tamil letter", $uyirmei_char));
+        }
+        $idx = self::getGranthaUyirmeiLetters($uyirmei_char);
+        $uyir_idx =  $idx[0] % 12;
+        $mei_idx = intval($idx - $uyir_idx / 12);
+        return [self::getGrandhaMeiLetters($mei_idx), self::getUyirLetters($uyir_idx)];
+    }
+    public static function joinMeiUyir($mei_char, $uyir_char)
+    {
+        /*This function join mei character and uyir character, and retuns as
+    compound uyirmei unicode character.
+
+    Inputs:
+        mei_char : It must be unicode tamil mei char.
+        uyir_char : It must be unicode tamil uyir char.*/
+        if (!$mei_char)
+            return $uyir_char;
+        if (!$uyir_char)
+            return $mei_char;
+        if (!is_string($mei_char))
+            throw new \ValueError(sprintf("Passed input mei character '%s' must be unicode, not just string", $mei_char));
+        if (!is_string($uyir_char))
+            throw new \ValueError(sprintf("Passed input uyir character '%s' must be unicode, not just string", $uyir_char));
+        if (!in_array($mei_char, self::getGrandhaMeiLetters()))
+            throw new \ValueError(sprintf("Passed input character '%s' is not a tamil mei character", $mei_char));
+        if (!in_array($uyir_char, self::UYIR_LETTERS))
+            throw new \ValueError(sprintf("Passed input character '%s' is not a tamil uyir character", $uyir_char));
+        if ($uyir_char)
+            $uyir_idx = array_search($uyir_char, self::UYIR_LETTERS);
+        else
+            return $mei_char;
+        $mei_idx = array_search($mei_char, self::getGrandhaMeiLetters());
+        $uyirmei_idx = $mei_idx * 12 + $uyir_idx;
+        return self::getGranthaUyirmeiLetters()[$uyirmei_idx];
+    }
     final public static function getUyirLetters()
     {
         return  ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"];
@@ -1228,7 +1305,6 @@ class UTF8
         }
         echo "TA LETTER COUNT : " . $ta_letter_count;
         echo "LETTER ARRAY: " . count($letter_array);
-        print_r($letter_array);
         return $ta_letter_count === count($letter_array);
     }
     public static function __all_symbols()
