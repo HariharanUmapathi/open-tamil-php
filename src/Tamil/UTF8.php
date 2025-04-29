@@ -11,9 +11,6 @@ namespace Tamil;
 use IntlChar;
 use Exception;
 
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
 if (version_compare(PHP_VERSION, '7.4.0', '<')) {
     trigger_error("PHP 7.4.0 or higher required to operate Open-Tamil library", E_USER_ERROR);
 }
@@ -377,19 +374,11 @@ class UTF8
         "ளௌ",
     ];
 
-    //const tamil247 =  ;
-
-
     # Ref: https://en.wikipedia.org/wiki/Tamil_numerals
     # tamil digits : Apart from the numerals (0-9), Tamil also has numerals for 10, 100 and 1000.
     public const TAMIL_DIGIT_1TO10 = ["௦", "௧", "௨", "௩", "௪", "௫", "௬", "௭", "௮", "௯", "௰"];
     public const TAMIL_DIGIT_100 = "௱";
     public const TAMIL_DIGIT_1000 = "௲";
-
-    //const tamil_digits =
-    //[(num, digit)
-    //for num, digit in zip(range(0, 11), tamil_digit_1to10)];
-    //const tamil_digits.extend([(100, tamil_digit_100), (1000, tamil_digit_1000)]);
 
     # tamil symbols
     public const _day = "௳";
@@ -969,7 +958,7 @@ class UTF8
          * return True. If they are written like "ப + ெ + ா" then return False on first occurrence
          * :param text: text
          * :return: True if letters of word are in canonical representation
-         * 
+         *
          */
 
         $tlen = mb_strlen($text);
@@ -979,18 +968,22 @@ class UTF8
             $sinna_kombu = "ெ";
             $periya_kombu = "ே";
 
-            if ($kaal == $last_letter and in_array($prev_letter, [$sinna_kombu, $periya_kombu]))
+            if ($kaal == $last_letter and in_array($prev_letter, [$sinna_kombu, $periya_kombu])) {
                 return true;
-            if ($laa == $last_letter and $prev_letter == $sinna_kombu)
+            }
+            if ($laa == $last_letter and $prev_letter == $sinna_kombu) {
                 return true;
+            }
             return false;
         };
 
-        if ($tlen < 2)
-            return true; # Single Character and empty string is always canocialized
+        if ($tlen < 2) {
+            return true;
+        } # Single Character and empty string is always canocialized
         elseif ($tlen == 2) {
-            if ($predicate(mb_substr($text, -1), mb_substr($text, -2)))
+            if ($predicate(mb_substr($text, -1), mb_substr($text, -2))) {
                 return false;
+            }
             return true;
         }
     }
@@ -1011,8 +1004,9 @@ class UTF8
     :param x: text string
     :return: True or False based on @x being Tamil letters exclusively.
     */
-        if (!self::isTamilUnicodecodept($x))
+        if (!self::isTamilUnicodecodept($x)) {
             return false;
+        }
         return count($x) > 1 && self::isTamilUnicodePredicate(mb_substr($x, 0, -1));
     }
     public static function wordIntersection()
@@ -1029,11 +1023,13 @@ class UTF8
     {
         /* This function split uyirmei compound character into mei + uyir characters
     and returns array.*/
-        if (!is_string($uyirmei_char))
+        if (!is_string($uyirmei_char)) {
             throw new \ValueError(sprintf("Passed input letter '%s' must be unicode, \
                                 not just string", $uyirmei_char));
-        if (in_array($uyirmei_char, self::MEI_LETTERS) || in_array($uyirmei_char, self::UYIR_LETTERS) || in_array($uyirmei_char, self::AYUDHA_LETTER))
+        }
+        if (in_array($uyirmei_char, self::MEI_LETTERS) || in_array($uyirmei_char, self::UYIR_LETTERS) || in_array($uyirmei_char, self::AYUDHA_LETTER)) {
             return $uyirmei_char;
+        }
         if (!in_array($uyirmei_char, self::getGranthaUyirmeiLetters())) {
             if (!self::isNormalized($uyirmei_char)) {
                 $norm_char = self::unicodeNormalize($uyirmei_char);
@@ -1055,22 +1051,29 @@ class UTF8
     Inputs:
         mei_char : It must be unicode tamil mei char.
         uyir_char : It must be unicode tamil uyir char.*/
-        if (!$mei_char)
+        if (!$mei_char) {
             return $uyir_char;
-        if (!$uyir_char)
+        }
+        if (!$uyir_char) {
             return $mei_char;
-        if (!is_string($mei_char))
+        }
+        if (!is_string($mei_char)) {
             throw new \ValueError(sprintf("Passed input mei character '%s' must be unicode, not just string", $mei_char));
-        if (!is_string($uyir_char))
+        }
+        if (!is_string($uyir_char)) {
             throw new \ValueError(sprintf("Passed input uyir character '%s' must be unicode, not just string", $uyir_char));
-        if (!in_array($mei_char, self::getGrandhaMeiLetters()))
+        }
+        if (!in_array($mei_char, self::getGrandhaMeiLetters())) {
             throw new \ValueError(sprintf("Passed input character '%s' is not a tamil mei character", $mei_char));
-        if (!in_array($uyir_char, self::UYIR_LETTERS))
+        }
+        if (!in_array($uyir_char, self::UYIR_LETTERS)) {
             throw new \ValueError(sprintf("Passed input character '%s' is not a tamil uyir character", $uyir_char));
-        if ($uyir_char)
+        }
+        if ($uyir_char) {
             $uyir_idx = array_search($uyir_char, self::UYIR_LETTERS);
-        else
+        } else {
             return $mei_char;
+        }
         $mei_idx = array_search($mei_char, self::getGrandhaMeiLetters());
         $uyirmei_idx = $mei_idx * 12 + $uyir_idx;
         return self::getGranthaUyirmeiLetters()[$uyirmei_idx];
@@ -1694,5 +1697,24 @@ class UTF8
         }
 
         return array_sum($total_maaththiraivarisai);
+    }
+    public static function unicodeNormalize($complex_character)
+    {
+        /*
+        Normalize complex Vowel-Consonant conjugate Tamil letter into a Unicode normalized format;
+        e.g. 'க்'+'ஓ' என்பது 'கோ' என்று எழுதுவதே சரியான குறியீடு. 'க்'+'ஏ' = கே + கால் சேர்ப்பதும் யூனிக்கோடில்
+        அனுமதிபெற்றாலும் அது சரியானதல்ல; அவ்வகை குறிமுறைகளை சீர்செய்வதே இந்த நிரல்துண்டு.
+        :param cplxchar:
+        :return:
+        */
+        $laa = "ள";
+        $kaal = "ா";
+        $sinna_kombu_a = "ெ";
+        $periya_kombu_aa = "ே";
+        $sinna_kombu_o = "ொ";
+        $periya_kombu_oo = "ோ";
+        $kombu_ak = "ௌ";
+
+        $lcplx = count($complex_character);
     }
 }
