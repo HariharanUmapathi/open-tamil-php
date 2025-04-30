@@ -9,9 +9,10 @@ class DateTest extends TestCase
 {
     private $dateTamil;
     private $date;
-    function __construct(){
+    function __construct()
+    {
         parent::__construct();
-        $this->dateTamil=new DateTimeTamil();
+        $this->dateTamil = new DateTimeTamil();
         $this->dateTamil->setDate('2025', '04', '30');
         $this->date = new DateTime();
         $this->date->setDate(2025, 04, 30);
@@ -40,25 +41,59 @@ class DateTest extends TestCase
             $date->format('z')
         ]);
     }
-    function testWeekFormatofDate(){
+    function testWeekFormatofDate()
+    {
         $this->assertEquals([
             $this->dateTamil->format('W')
-        ],[
+        ], [
             $this->date->format('W')
         ]);
     }
-    function testMonthFormatofDate(){
+    function testMonthFormatofDate()
+    {
         $this->assertEquals([
             $this->dateTamil->format("F"),
             $this->dateTamil->format("m"),
             $this->dateTamil->format("M"),
             $this->dateTamil->format("n"),
-        ],[
+        ], [
             "ஏப்ரல்",
             $this->date->format("m"),
             "ஏப்",
             $this->date->format('n')
         ]);
+    }
+    function testYearformatofDate()
+    {
+        $this->assertEquals([
+            $this->dateTamil->format("L"),
+            $this->dateTamil->format("o"),
+            $this->dateTamil->format("X"),
+            $this->dateTamil->format("x"),
+            $this->dateTamil->format("Y"),
+            $this->dateTamil->format("y"),
+        ], [
+            $this->date->format("L"),
+            $this->date->format("o"),
+            $this->date->format("X"),
+            $this->date->format("x"),
+            $this->date->format("Y"),
+            $this->date->format("y")
+        ]);
+    }
+    function testTamilLocaleSupport()
+    {
 
+        /* Set locale to Dutch */
+        setlocale(LC_ALL, 'ta_IN.UTF-8');
+
+        /* Output: vrijdag 22 december 1978 */
+        echo strftime("%A %e %B %Y", mktime(0, 0, 0, 12, 22, 1978));
+
+        /* try different possible locale names for german */
+        $loc_de = setlocale(LC_ALL, 'ta_IN', 'ta-IN');
+        $this->assertFalse($loc_de === false, "Preferred locale for Tamil on this system is '$loc_de'");
+        $this->assertNotEmpty($loc_de);
+        $this->assertFalse($loc_de === false, "Tamil India Availalable");
     }
 }

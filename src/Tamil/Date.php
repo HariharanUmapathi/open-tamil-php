@@ -45,7 +45,8 @@ class DateTimeTamil extends \DateTime
         $date_format = str_replace([
             'd','D','j','l','N','S','w','z', // Day format codes in php date time
             'W',                             // Week format code in php date time 
-            'F','m','M','n','t'                             //Month code in php date time
+            'F','m','M','n','t',              // Month format code in php date time
+            'L','o','X','x','Y','y' // Year format code in 
         ],[
             parent::format('d'),
             self::TA_WEEKDAYS_SHORT[parent::format('w')-1],
@@ -62,8 +63,14 @@ class DateTimeTamil extends \DateTime
             parent::format('m'),
             mb_substr(self::TA_MONTHS[parent::format('m')-1],0,3),
             parent::format('n'),
-            parent::format('t')
-            
+            parent::format('t'),
+            parent::format('L'),
+            parent::format('o'),
+            parent::format('X'),
+            parent::format('x'),
+            parent::format('Y'),
+            parent::format('y'),
+
         ],$date_format);
 
         return $date_format;
