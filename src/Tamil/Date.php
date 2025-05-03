@@ -4,7 +4,7 @@ namespace Tamil;
 
 class DateTimeTamil extends \DateTime
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -40,28 +40,29 @@ class DateTimeTamil extends \DateTime
         "நவம்பர்",
         "டிசம்பர்",
     ];
-    function format($date_format){
+    public function format($date_format)
+    {
 
         $date_format = str_replace([
             'd','D','j','l','N','S','w','z', // Day format codes in php date time
-            'W',                             // Week format code in php date time 
+            'W',                             // Week format code in php date time
             'F','m','M','n','t',              // Month format code in php date time
-            'L','o','X','x','Y','y' // Year format code in 
-        ],[
+            'L','o','X','x','Y','y' // Year format code in
+        ], [
             parent::format('d'),
-            self::TA_WEEKDAYS_SHORT[parent::format('w')-1],
+            self::TA_WEEKDAYS_SHORT[parent::format('w') - 1],
             parent::format('j'),
-            self::TA_WEEKDAYS_FULL[parent::format('w')-1],
+            self::TA_WEEKDAYS_FULL[parent::format('w') - 1],
             parent::format('N'),
             "வது",
             parent::format('w'),
             parent::format('z'),
-            //Week Codes 
+            //Week Codes
             parent::format('W'),
-            //Month Code 
-            self::TA_MONTHS[parent::format('n')-1],
+            //Month Code
+            self::TA_MONTHS[parent::format('n') - 1],
             parent::format('m'),
-            mb_substr(self::TA_MONTHS[parent::format('m')-1],0,3),
+            mb_substr(self::TA_MONTHS[parent::format('m') - 1], 0, 3),
             parent::format('n'),
             parent::format('t'),
             parent::format('L'),
@@ -71,7 +72,7 @@ class DateTimeTamil extends \DateTime
             parent::format('Y'),
             parent::format('y'),
 
-        ],$date_format);
+        ], $date_format);
 
         return $date_format;
     }
