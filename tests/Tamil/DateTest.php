@@ -88,7 +88,7 @@ class DateTest extends TestCase
         setlocale(LC_ALL, 'ta_IN.UTF-8');
 
         /* Output: vrijdag 22 december 1978 */
-        echo strftime("%A %e %B %Y", mktime(0, 0, 0, 12, 22, 1978));
+        $this->assertTrue("வெள்ளி 22 டிசம்பர் 1978"==strftime("%A %e %B %Y", mktime(0, 0, 0, 12, 22, 1978)),"Tamil weeks and month representation is working") ;
 
         /* try different possible locale names for german */
         $loc_de = setlocale(LC_ALL, 'ta_IN', 'ta-IN');
