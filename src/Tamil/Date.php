@@ -40,7 +40,7 @@ class DateTimeTamil extends \DateTime
         "நவம்பர்",
         "டிசம்பர்",
     ];
-    public function format($date_format)
+    public function format($date_format):string
     {
 
         $date_format = str_replace([
