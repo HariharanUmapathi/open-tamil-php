@@ -1,0 +1,578 @@
+{
+    "to_unicode_repr": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::toUnicodeRepr",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "letters_to_py": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::toArray",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "accent_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getAccentLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "ayudha_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getAyudhaLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "uyir_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getUyirLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "mei_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getMeiLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "agaram_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getAgaramLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "uyirmei_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getUyirmeiLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "tamil_len": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getTamilLen",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "uyir": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::uyir",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "agaram": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::agaram",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "mei": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::mei",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "uyirmei": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::uyirmei",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "mei_to_agaram": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::meiToAgaram",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "uyirmei_constructed": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::uyirmeiConstructed",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "tamil": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::tamil",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "getidx": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::getidx",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "istamil_prefix": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "Not Implemented",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "is_tamil_unicode_value": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::isTamilUnicodeValue",
+        "status": "in-progress",
+        "notes": "Function name only defined",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "is_tamil_unicode_codept": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::isTamilUnicodeCodept",
+        "status": "in-progress",
+        "notes": "Partially Implemented has dependency isTamilUnicodeValue is not fully implemented",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "is_tamil_unicode_predicate": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "in-progress",
+        "notes": "This function has incomplete dependency isTamilUnicodeValue is not fully implemented",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "is_tamil_unicode": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::isTamilUnicode",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "has_english": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::hasEnglish",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "all_tamil": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "check_ta": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "all_tamil_text_v1": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "all_tamil_text": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "has_tamil": {
+        "file_name": "utf8.py",
+        "php_equivalent": "Tamil\\UTF8::hasTamil",
+        "status": "ported",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "istamil": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "istamil_alnum": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "reverse_word": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "is_normalized": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "predicate": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "_make_set": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "copy_lru_decorator": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "f_lru": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "f_copy_lru": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters_length": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters_iterable": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "join_letters_elementary": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters_elementary_iterable": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters_elementary": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_words": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_words_iterable": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_tamil_words": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "cmp": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "compare_words_lexicographic": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "word_intersection": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "unicode_normalize": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "splitMeiUyir": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "joinMeiUyir": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "classify_letter": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "print_tamil_words": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "tamil_sorted": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "hex2unicode": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "unicode2hex": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "shorten": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "__init__": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "get_letters_impl": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "calculate_uyir_nedil_kuril_maathirai": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "calculate_maththirai": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "total_maaththirai": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "CacheGetLettersMixin": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "abc": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "operator": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "re": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "string": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "copy.copy": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "sys.version": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "functools": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    },
+    "functools.lru_cache": {
+        "file_name": "utf8.py",
+        "php_equivalent": null,
+        "status": "missing",
+        "notes": "NO mapping found",
+        "testing": "not done",
+        "documentation": "not done"
+    }
+}

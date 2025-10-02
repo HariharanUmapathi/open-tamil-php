@@ -1244,8 +1244,8 @@ class UTF8
         return array_merge(self::UYIR_LETTERS, [self::AYUDHA_LETTER], self::getGranthaAgaramLetters());
     }
     public static function isTamilUnicodeValue($letter)
-    {
-        return true;
+    {/** Need to be implemented  */
+        return new Exception("Not Implemented");
     }
     public static function getLetters($word_input)
     {

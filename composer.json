@@ -29,7 +29,8 @@
 	    "setup":"@php setup.php",
         "view-docs":"@php -S localhost:8000 -t ./docs/_build/html/",
         "clean-docs":"cd ./docs/ && make clean",
-        "gen-docs":"cd ./docs/ && make html"
+        "gen-docs":"cd ./docs/ && make html",
+        "port-status":"@php src/PortStatusChecker.php"
     }
     
 }
