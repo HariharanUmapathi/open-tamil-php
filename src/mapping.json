@@ -185,16 +185,16 @@
     },
     "all_tamil": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::allTamil",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
     },
     "check_ta": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::checkTa",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
@@ -225,15 +225,15 @@
     },
     "istamil": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::isTamil",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
     },
     "istamil_alnum": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::isTamilAlnum",
         "status": "missing",
         "notes": "NO mapping found",
         "testing": "not done",
