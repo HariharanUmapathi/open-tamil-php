@@ -1079,6 +1079,23 @@ class UTF8
         $uyirmei_idx = $mei_idx * 12 + $uyir_idx;
         return self::getGranthaUyirmeiLetters()[$uyirmei_idx];
     }
+    public static function joinLettersElementary($elements)
+    {
+        /*
+            @elements ['க்','ஆ'] input will return 'கா' - this function is complementary of splitMeiUyir(...)
+        :param elements: even element list of size >= 2  of vowel or consonants.
+        :return: join elementary list of vowel-consonant into conjugates;
+        */
+        if (count($elements) % 2 != 0) {
+            throw new Exception("input has to be an even numbered list");
+        }
+        $joinedLetters = [];
+        for ($i = 0;$i < count($elements);$i = $i + 2) {
+            $joinedLetters = self::joinMeiUyir($elements[$i], $elements[$i + 1]);
+        }
+        return join($joinedLetters);
+    }
+
     final public static function getUyirLetters()
     {
         return  ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"];
@@ -1244,7 +1261,8 @@ class UTF8
         return array_merge(self::UYIR_LETTERS, [self::AYUDHA_LETTER], self::getGranthaAgaramLetters());
     }
     public static function isTamilUnicodeValue($letter)
-    {/** Need to be implemented  */
+    {
+        /** Need to be implemented  */
         return new Exception("Not Implemented");
     }
     public static function getLetters($word_input)
@@ -1356,6 +1374,11 @@ class UTF8
     {
         return in_array($letter, self::TAMIL_LETTERS);
     }
+    public static function isTamilAlnum($letter)
+    {
+        //
+        throw new Exception("Not Implemented");
+    }
     public static function getWordsIterable($letters, $tamilOnly = false)
     {
         $buffer = [];
@@ -1404,6 +1427,13 @@ class UTF8
     //  foreach( mb_split("\\-|/",$input_data) as $s)
     //      echo $s;
     //}
+    public static function checkTa($char)
+    {
+        /*
+        * True if a given char is a Tamil alphabet or a punctuation or digit or whitespace, False otherwise
+        */
+        return self::allTamil($char) || IntlChar::ispunct($char) || IntlChar::isdigit($char) || IntlChar::isspace($char);
+    }
     public static function isTamilUnicode($char)
     {
         // Check if the character falls within the Tamil Unicode range
@@ -1718,4 +1748,5 @@ class UTF8
 
         $lcplx = count($complex_character);
     }
+
 }
