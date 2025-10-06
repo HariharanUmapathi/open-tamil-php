@@ -3,7 +3,7 @@
 class PortStatusChecker
 {
     private $mapping;
-    private $report;
+    public $report;
     public function __construct($mappingFile)
     {
         $this->mapping = json_decode(file_get_contents($mappingFile), true);
@@ -38,6 +38,16 @@ class PortStatusChecker
         $this->report = $report;
         return $report;
     }
+    public function filter($records)
+    {
+        return array_filter($records, function ($record) {
+            if ($record['notes'] == "future implementation") {
+                return false;
+            }
+            return $record['php_equivalent'] == "";
+            // return  $record;
+        });
+    }
     public function exportReport()
     {
         echo "<table border='1' cellpadding=5>";
@@ -67,26 +77,27 @@ class PortStatusChecker
 
         echo "</table>";
     }
-    public function getProgress(){
+    public function getProgress()
+    {
         $total = count($this->mapping);
-        $counts = ["ported" => 0, "in-progress" => 0, "missing" => 0 ,"testing" => 0, "documentation" => 0 ];
+        $counts = ["ported" => 0, "in-progress" => 0, "missing" => 0, "testing" => 0, "documentation" => 0];
 
         foreach ($this->mapping as $entry) {
             $status = strtolower($entry["status"]);
             if (isset($counts[$status])) {
                 $counts[$status]++;
             }
-            if(isset($entry['testing']) && $entry['testing']=="done") {
+            if (isset($entry['testing']) && $entry['testing'] == "done") {
                 $counts['testing']++;
             }
-            if(isset($entry['documentation']) && $entry['documentation']=="done") {
+            if (isset($entry['documentation']) && $entry['documentation'] == "done") {
                 $counts['documentation']++;
             }
         }
 
         $percent = $total > 0 ? round(($counts["ported"] / $total) * 100, 2) : 0;
-        $percent_testing = $total > 0 ? round(($counts['testing']/$total) * 100,2):0;
-        $percent_documented = $total > 0 ? round(($counts['documentation']/$total) * 100,2):0;
+        $percent_testing = $total > 0 ? round(($counts['testing'] / $total) * 100, 2) : 0;
+        $percent_documented = $total > 0 ? round(($counts['documentation'] / $total) * 100, 2) : 0;
         return [
             "total" => $total,
             "counts" => $counts,
@@ -97,13 +108,12 @@ class PortStatusChecker
     }
 }
 
-//Example Usage 
+//Example Usage
 
-$tracker = new PortStatusChecker("./src/mapping.json");
+$tracker = new PortStatusChecker(__DIR__."/mapping.json");
 
 $result = $tracker->analyzePythonFile("/home/hariharan/open-workspace/open-tamil/tamil/utf8.py");
-// To Export 
-// $tracker->exportReport();
+$tracker->report = $tracker->filter($tracker->report);
 $progress = $tracker->getProgress();
 echo "Total symbols: {$progress['total']}\n";
 echo "Ported: {$progress['counts']['ported']}\n";
@@ -112,3 +122,7 @@ echo "Missing: {$progress['counts']['missing']}\n";
 echo "Testing: {$progress['counts']['testing']} ({$progress['tested']}%)\n";
 echo "Documentation : {$progress['counts']['documentation']} ({$progress['documented']}%) \n";
 echo "Completion: {$progress['counts']['ported']}/{$progress['total']} {$progress['percent']}%\n";
+if (PHP_SAPI !== "cli") {
+    // To Export
+    $tracker->exportReport();
+}

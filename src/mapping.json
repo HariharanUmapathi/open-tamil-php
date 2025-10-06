@@ -257,33 +257,33 @@
     },
     "predicate": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "anonymous function inside Tamil\\UTF8::isNormalized",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
     },
     "_make_set": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::makeSet",
         "status": "missing",
-        "notes": "NO mapping found",
+        "notes": "Unimplemented not right now",
         "testing": "not done",
         "documentation": "not done"
     },
     "copy_lru_decorator": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
-        "notes": "NO mapping found",
+        "php_equivalent": "Tamil\\UTF8::copyLruDecorator",
+        "status": "ported",
+        "notes": "future implemetation",
         "testing": "not done",
         "documentation": "not done"
     },
     "f_lru": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::fLru",
         "status": "missing",
-        "notes": "NO mapping found",
+        "notes": "future implementation",
         "testing": "not done",
         "documentation": "not done"
     },
@@ -291,13 +291,13 @@
         "file_name": "utf8.py",
         "php_equivalent": null,
         "status": "missing",
-        "notes": "NO mapping found",
+        "notes": "future implementation",
         "testing": "not done",
         "documentation": "not done"
     },
     "get_letters": {
         "file_name": "utf8.py",
-        "php_equivalent":"Tamil\\UTF8::getLetters",
+        "php_equivalent": "Tamil\\UTF8::getLetters",
         "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
@@ -305,8 +305,8 @@
     },
     "get_letters_length": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::getLettersLength",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
@@ -545,7 +545,7 @@
     },
     "copy.copy": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::copy",
         "status": "missing",
         "notes": "NO mapping found",
         "testing": "not done",
@@ -563,15 +563,15 @@
         "file_name": "utf8.py",
         "php_equivalent": null,
         "status": "missing",
-        "notes": "NO mapping found",
+        "notes": "future implementation",
         "testing": "not done",
         "documentation": "not done"
     },
     "functools.lru_cache": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::",
         "status": "missing",
-        "notes": "NO mapping found",
+        "notes": "future implementation",
         "testing": "not done",
         "documentation": "not done"
     }
