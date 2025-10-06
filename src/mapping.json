@@ -137,7 +137,7 @@
     },
     "istamil_prefix": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::isTamilPrefix",
         "status": "missing",
         "notes": "Not Implemented",
         "testing": "not done",
@@ -161,8 +161,8 @@
     },
     "is_tamil_unicode_predicate": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "in-progress",
+        "php_equivalent": "Tamil\\UTF8::isTamilUnicodePredicate",
+        "status": "ported",
         "notes": "This function has incomplete dependency isTamilUnicodeValue is not fully implemented",
         "testing": "not done",
         "documentation": "not done"
@@ -201,7 +201,7 @@
     },
     "all_tamil_text_v1": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::allTamilTextV1",
         "status": "missing",
         "notes": "NO mapping found",
         "testing": "not done",
@@ -209,8 +209,8 @@
     },
     "all_tamil_text": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::allTamilText",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
@@ -241,7 +241,7 @@
     },
     "reverse_word": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
+        "php_equivalent": "Tamil\\UTF8::reverseWord",
         "status": "missing",
         "notes": "NO mapping found",
         "testing": "not done",
@@ -249,8 +249,8 @@
     },
     "is_normalized": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::isNormalized",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
@@ -297,8 +297,8 @@
     },
     "get_letters": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent":"Tamil\\UTF8::getLetters",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
@@ -321,8 +321,8 @@
     },
     "join_letters_elementary": {
         "file_name": "utf8.py",
-        "php_equivalent": null,
-        "status": "missing",
+        "php_equivalent": "Tamil\\UTF8::joinLettersElementary",
+        "status": "ported",
         "notes": "NO mapping found",
         "testing": "not done",
         "documentation": "not done"
