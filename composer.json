@@ -3,7 +3,8 @@
     "description": "Open Tamil is PHP Port for https://github.com/Ezhil-Language-Foundation/open-tamil/",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6",
+        "friendsofphp/php-cs-fixer": "^3.88"
     },
     "license": "MIT",
     "authors": [
@@ -22,8 +23,8 @@
 	    "php":"^7.4"
     },
     "scripts":{
-    	"lint":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./src",
-	    "lint-tests":"@php ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix ./tests",
+    	"lint":"@php ./vendor/bin/php-cs-fixer fix ./src",
+	    "lint-tests":"@php ./vendor/bin/php-cs-fixer fix ./tests",
 	    "test":"vendor/bin/phpunit --bootstrap src/bootstrap.php ./tests",
 	    "check-completion":"python3 ./src/Tamil/utf8.test.py",
 	    "setup":"@php setup.php",
