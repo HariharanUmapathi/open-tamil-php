@@ -16,6 +16,9 @@ if (version_compare(PHP_VERSION, '7.4.0', '<')) {
 }
 class UTF8
 {
+    //Regular Expressions used
+    public const PUNCTUATION = "/!|\"|\\#|\\|$|%|&|\'|\\|(|\\|)|\\|*|\\|+|,|\\|-|\\|.|/|:|;|<|=|>|\\|?|@|\\|[|\\|\\|\\|]|\\|^|_|`|\\|{|\\|||\\|}|\\|~/";
+    public const WHITESPACE_DIGITS_OR_ALPHA = "/[\s|\d|'+" . self::PUNCTUATION . "+']+/";
     //ASCII LETTERS to find english characters
     public const ASCII_LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     //Constants Definition Part
@@ -986,6 +989,20 @@ class UTF8
             }
             return true;
         }
+        $idx = $tlen;
+        $a = $text[$idx - 2];
+        $b = $text[$idx - 1];
+        while ($idx >= 0) {
+            if ($predicate($b, $a)) {
+                return false;
+            }
+            $b = $a;
+            $idx = $idx - 1;
+            if ($idx >= 0) {
+                $a = $text[$idx];
+            }
+        }
+        return true;
     }
     public static function isTamilUnicodeCodept(String $x)
     {
@@ -1028,7 +1045,7 @@ class UTF8
             throw new \ValueError(sprintf("Passed input letter '%s' must be unicode, \
                                 not just string", $uyirmei_char));
         }
-        if (in_array($uyirmei_char, self::MEI_LETTERS) || in_array($uyirmei_char, self::UYIR_LETTERS) || in_array($uyirmei_char, self::AYUDHA_LETTER)) {
+        if (in_array($uyirmei_char, self::MEI_LETTERS) || in_array($uyirmei_char, self::UYIR_LETTERS) || in_array($uyirmei_char, [self::AYUDHA_LETTER])) {
             return $uyirmei_char;
         }
         if (!in_array($uyirmei_char, self::getGranthaUyirmeiLetters())) {
@@ -1039,10 +1056,10 @@ class UTF8
             }
             throw new \ValueError(sprintf("Passed input letter '%s' is not tamil letter", $uyirmei_char));
         }
-        $idx = self::getGranthaUyirmeiLetters($uyirmei_char);
-        $uyir_idx =  $idx[0] % 12;
-        $mei_idx = intval($idx - $uyir_idx / 12);
-        return [self::getGrandhaMeiLetters($mei_idx), self::getUyirLetters($uyir_idx)];
+        $idx = array_search($uyirmei_char, self::getGranthaUyirmeiLetters());
+        $uyir_idx =  $idx % 12;
+        $mei_idx = intval($idx - $uyir_idx - 1 / 12);
+        return [self::getGrandhaMeiLetters()[$mei_idx], self::getUyirLetters()[$uyir_idx]];
     }
     public static function joinMeiUyir($mei_char, $uyir_char)
     {
@@ -1090,7 +1107,7 @@ class UTF8
             throw new Exception("input has to be an even numbered list");
         }
         $joinedLetters = [];
-        for ($i = 0;$i < count($elements);$i = $i + 2) {
+        for ($i = 0; $i < count($elements); $i = $i + 2) {
             $joinedLetters = self::joinMeiUyir($elements[$i], $elements[$i + 1]);
         }
         return join($joinedLetters);
@@ -1112,7 +1129,6 @@ class UTF8
     public static function getGranthaUyirmeiLetters()
     {
         $start = array_search("கா", self::TAMIL_LETTERS) - 1;
-
         return array_slice(self::TAMIL_LETTERS, $start);
     }
     public static function getTamil247()
@@ -1260,10 +1276,9 @@ class UTF8
     {
         return array_merge(self::UYIR_LETTERS, [self::AYUDHA_LETTER], self::getGranthaAgaramLetters());
     }
-    public static function isTamilUnicodeValue($letter)
+    public static function isTamilUnicodeValue($unicode_index)
     {
-        /** Need to be implemented  */
-        return new Exception("Not Implemented");
+        return $unicode_index >= 2946 && $unicode_index <= 3066;
     }
     public static function getLetters($word_input)
     {
@@ -1308,25 +1323,19 @@ class UTF8
     }
     public static function allTamil($word_input)
     {
-        $length = strlen($word_input);
-        $tamil_letters = [];
         $ta_letter_count = 0;
         if (is_string($word_input)) {
-            $letter_array = mb_str_split($word_input);
+            $letter_array = self::getLetters($word_input);
         }
 
         if (is_array($word_input)) {
         } else {
             foreach ($letter_array as $letter) {
-
-                echo $letter;
                 if (in_array($letter, self::TAMIL_LETTERS)) {
                     $ta_letter_count++;
                 }
             }
         }
-        echo "TA LETTER COUNT : " . $ta_letter_count;
-        echo "LETTER ARRAY: " . count($letter_array);
         return $ta_letter_count === count($letter_array);
     }
     public static function __all_symbols()
@@ -1748,5 +1757,102 @@ class UTF8
 
         $lcplx = count($complex_character);
     }
+    public static function isTamilPrefix($word)
+    {
+        /* check if the given @word has a tamil prefix. Returns
+    either a True/False flag*/
+        foreach (self::TAMIL_LETTERS as $letter) {
+            if (array_search($letter, $word) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static function allTamilText($string)
+    {
+        /*
+    Predicate function
+    :param: str
+    :return: True if if only contains Tamil characters and punctuations (for ex. without English) and False otherwise
+    */
+        $short_str = preg_replace(self::WHITESPACE_DIGITS_OR_ALPHA, '', $string);
+        return self::allTamil($short_str);
+    }
+    public static function allTamilTextV1($string)
+    {
+        /*
+    Predicate function
+    :param: str
+    :return: True if if only contains Tamil characters and punctuations (for ex. without English) and False otherwise
+    */
+        $letters = self::getLetters($string);
+        $result = array_map("self::checkTa", $letters);
+        return array_sum($result) == count($letters);
+    }
+    public static function makeSet($list)
+    {
+        throw new Exception("Unimplemented Method");
+    }
 
+    public static function lruCache()
+    {
+        //https://blog.devgenius.io/implementing-lru-cache-in-php-1632cf6a7443
+        throw new Exception("Unimplemented Method");
+    }
+    public static function copyLruDecorator()
+    {
+        throw new Exception("Unimplemented Method");
+    }
+    public static function fLru()
+    {
+        throw new Exception("Unimplemented Method");
+    }
+    public static function fCopyLru()
+    {
+        throw new Exception("Unimplemented Method");
+    }
+    public function copy($obj)
+    {
+        if (is_array($obj)) {
+            // Arrays in PHP assigned to a new variable are copied (shallow)
+            return $obj;
+        } elseif (is_object($obj)) {
+            // Clone objects for shallow copy
+            return clone $obj;
+        } else {
+            // For scalars (int, string, bool, float), just return as-is
+            return $obj;
+        }
+    }
+    public static function getLettersLength($word_input)
+    {
+        return count(self::getLetters($word_input));
+    }
+    public static function getLettersIterable($word_input)
+    {
+        /*splits the word into a character-list of tamil/english
+    characters present in the stream*/
+        $wlen = mb_strlen($word_input);
+        $idx = 0;
+        while ($idx < $wlen) {
+            $char =  $word_input[$idx];
+            if (in_array($char, self::UYIR_LETTERS) || $char == self::AYUDHA_LETTER) {
+                $idx = $idx + 1;
+                yield $char;
+            } elseif (in_array($char, self::getGranthaAgaramLetters())) {
+                if ($idx + 1 < $wlen && in_array($word_input[$idx + 1], self::__all_symbols())) {
+                    $c2 = $word_input[$idx + 1];
+                    $idx = $idx + 2;
+                    yield ($char + $c2);
+                } else {
+                    $idx = $idx + 1;
+
+                    yield $char;
+                }
+            } else {
+                $idx = $idx + 1;
+                yield $char;
+            }
+        }
+    }
 }
